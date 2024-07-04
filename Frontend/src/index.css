@@ -8,7 +8,7 @@
 }
 
 .body{
-    background-image: url("https://cdn.discordapp.com/attachments/1241785032725631079/1257564641433878568/vite.png?ex=6684ddd6&is=66838c56&hm=06cdcfad5d2e4f69e071e0856571babec173b898564b3d73533184c869400a65&");
+    background-image: url("../public/vite.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
@@ -17,20 +17,17 @@
     width: 100vw;
     margin-bottom: 0px;
 }
-img{
-    width : 100%;
-    height : 100%;
-}
+
        /* sign in box */
 
 .sign-in-box{
     background-color: white;
-    height : 60vh;
+    height : 65vh;
     width : 23vw;
     border-radius : 20px;
     padding : 20px;
     position : absolute;
-    top : 20%;
+    top : 15%;
     left : 65%;
     opacity : 90%;
 }
@@ -40,7 +37,7 @@ img{
 }
 .input-text{
     width : 90%;
-    margin: 15px 12px;
+    margin: 10px 10px;
     height : 35px;
     border-radius : 10px;
     text-align: center;
