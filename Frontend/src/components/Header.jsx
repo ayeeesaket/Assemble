@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Header = () => {
-    return (
-        <div>
-            <div className="navbar  bg-zinc-700">
+  return (
+    <div>
+      <div className="navbar flex">
                 <div className="logo flex px-2 py-2 text-white">
                     <svg className='mt-1' width="50" height="50" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M242.768 107.57C253.468 107.57 251.292 144.197 242.768 144.197C234.244 144.197 170.223 144.197 170.223 144.197V107.57C170.223 107.57 232.068 107.57 242.768 107.57Z" fill="white" />
@@ -21,8 +21,8 @@ const Header = () => {
                 </div>
                
             </div>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default Header
