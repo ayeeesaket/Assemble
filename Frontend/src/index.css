@@ -33,15 +33,14 @@
 }
 .sign-in-box-heading{
     text-align: center;
-    margin-bottom : 10px;
 }
 .input-text{
     width : 90%;
     margin: 10px 10px;
     height : 35px;
     border-radius : 10px;
-    text-align: center;
-    font-weight: bold;
+    padding-left : 10px;
+    font-weight: bolder;
     border : none;
     color : rgb(0, 0, 0);
     background-color : rgb(234, 231, 231)
@@ -53,7 +52,7 @@
 }
 .sign-in-button{  
      width : 90%;
-    margin : 15px 12px;
+    margin : 15px 12px 10px 12px;
     height : 35px;
     background-color: rgb(143, 73, 26);
     color : white;
@@ -75,6 +74,37 @@
     font-size : 12px;
     margin : 15px;
 }
+/* .games{
+    height : 30px;
+    margin-bottom : 50px;
+}
+.logo{
+    margin-bottom: 80px;
+} */
+.pubg{
+    height : 25px;
+    width : 50px;
+    background-image: url("./assets/pubg.svg");
+    background-size: 100% 100%;
+}
+.valorant{
+    height : 25px;
+    width : 50px;
+    background-image: url("./assets/valorant.svg");
+    background-size: 100% 100%;
+}
+.coc{
+    height : 25px;
+    width : 50px;
+    background-image: url("./assets/coc.svg");
+    background-size: 100% 100%;
+}
+.cod{
+    height : 25px;
+    width : 50px;
+    background-image: url("./assets/codm.svg");
+    background-size: 100% 100%;
+}
 
     /* footer */
 .footer-list{
@@ -86,4 +116,25 @@
     bottom: 7%;
     list-style-type: none;
     padding : 0 20px;
+}
+
+/* Privacy policy */
+.peepee{
+    height: 100vh;
+    width : 100vw;
+    background-image: url("./assets/peepee.svg");
+    background-size: cover; 
+}
+.peepee-doc{
+    height: 75vh;
+    width : 25vw;
+   background-color: white;
+   overflow-y: scroll;
+   position: absolute;
+   top : 50%;
+   left:50%;
+   transform: translate(-50%, -50%);
+   border-radius : 20px;
+   scrollbar-width: none;
+   opacity: 80%;
 }
