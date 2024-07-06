@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { SiValorant } from "react-icons/si";
-import { SiPubg } from "react-icons/si";
 import Header from './Header';
+import Footer from './Footer';
 const Body = () => {
   
   const [isLogin, setIslogin] = useState(false);
@@ -65,22 +64,14 @@ console.log(Email,Password,Fullname);
          <div className="line"></div>
        </div>
        <p className="end-text">Tournament Supported Games</p>
-       <div className = "logo flex  justify-between ml-5 mr-5">
-         <div><SiValorant size={25} /></div>
-         <div>< SiPubg size={25} /></div>
-         <div><SiValorant size={25} /></div>
-         <div><SiValorant size={25} /></div>
-       </div>
+       <div className = "logo flex  justify-between ml-5 mr-5 pb-5">
+         <div className='pubg'> </div>
+          <div className="valorant"></div>
+          <div className="coc"></div>
+          <div className="cod"></div>
+        </div>
      </form>
-
-
-     <footer className="page-footer">
-       <ul className="footer-list">
-         <li className="list-item">CONTACT US</li>
-         <li className="list-item">TERMS OF SERVICE</li>
-         <li className="list-item">PRIVACY POLICY</li>
-       </ul>
-     </footer>
+     <Footer/>
    </div>
     </div>
     </div>
