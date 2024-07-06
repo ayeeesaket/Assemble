@@ -3,6 +3,9 @@ import React from 'react'
 const Header = () => {
   return (
     <div>
+       <div className='body'>
+        <div className="page">
+  
       <div className="navbar flex">
                 <div className="logo flex px-2 py-2 text-white">
                     <svg className='mt-1' width="50" height="50" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,10 +20,12 @@ const Header = () => {
                     </svg>
                     <div className="text"> <h3 className='text-s t1 ml-5 -mb-2 font-light font-["AgencyFB"] '>GAMEZONE   UNITED   INDIA</h3>
                 <h1 className='ml-3 -mt-4 text-[40px] font-bold font-["AgencyFB"]'>ASSEMBLE</h1></div>
-               
+              
                 </div>
                
             </div>
+    </div>
+    </div>
     </div>
   )
 }
