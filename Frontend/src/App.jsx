@@ -7,8 +7,8 @@ import Peepee from './components/Peepee'
 const App = () => {
   return (
     <div>
-    
     <Body/>
+  
 
     </div>
   )
