@@ -1,150 +1,172 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
-    margin : 0;
-    padding : 0;
-    font-family :'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-.body{
-    background-image: url("../public/vite.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+.body {
+  background-image: url("../public/vite.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
-.page{
-    height : 100vh;
-    width: 100vw;
-    margin-bottom: 0px;
-}
-
-       /* sign in box */
-
-.sign-in-box{
-    background-color: white;
-    height : 65vh;
-    width : 23vw;
-    border-radius : 20px;
-    padding : 20px;
-    position : absolute;
-    top : 15%;
-    left : 65%;
-    opacity : 90%;
-}
-.sign-in-box-heading{
-    text-align: center;
-}
-.input-text{
-    width : 90%;
-    margin: 10px 10px;
-    height : 35px;
-    border-radius : 10px;
-    padding-left : 10px;
-    font-weight: bolder;
-    border : none;
-    color : rgb(0, 0, 0);
-    background-color : rgb(234, 231, 231)
-}
-#checkbox{
-    margin : 15px 15px;
-    transform :scale(1.5);
-    border : 6px solid rgb(143, 73, 26);
-}
-.sign-in-button{  
-     width : 90%;
-    margin : 15px 12px 10px 12px;
-    height : 35px;
-    background-color: rgb(143, 73, 26);
-    color : white;
-    border-radius : 20px;
-    border : none;
-}
-.sign-in-div{
-    display: flex;
-    justify-content : space-between;
-    margin: 15px 15px;
-    font-weight : bold;
-}
-.line{
-    border-bottom: 1px solid rgb(143, 73, 26);
-    margin : 4px 15px;
-}
-.end-text{
-    text-align: center;
-    font-size : 12px;
-    margin : 15px;
-}
-/* .games{
-    height : 30px;
-    margin-bottom : 50px;
-}
-.logo{
-    margin-bottom: 80px;
-} */
-.pubg{
-    height : 25px;
-    width : 50px;
-    background-image: url("./assets/pubg.svg");
-    background-size: 100% 100%;
-}
-.valorant{
-    height : 25px;
-    width : 50px;
-    background-image: url("./assets/valorant.svg");
-    background-size: 100% 100%;
-}
-.coc{
-    height : 25px;
-    width : 50px;
-    background-image: url("./assets/coc.svg");
-    background-size: 100% 100%;
-}
-.cod{
-    height : 25px;
-    width : 50px;
-    background-image: url("./assets/codm.svg");
-    background-size: 100% 100%;
+.page {
+  height: 100vh;
+  width: 100vw;
+  margin-bottom: 0px;
 }
 
-    /* footer */
-.footer-list{
-    color : white;
-    display : flex;
-    gap : 100px;
-    padding : 10px;
-    position: absolute;
-    bottom: 7%;
-    list-style-type: none;
-    padding : 0 20px;
+/* sign in box */
+
+.sign-in-box {
+  background-color: white;
+  height: 65vh;
+  width: 23vw;
+  border-radius: 20px;
+  padding: 8px;
+  position: absolute;
+  top: 15%;
+  left: 70%;
+}
+.sign-in-box-heading {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 25px;
+}
+.input-text {
+  width: 90%;
+  margin: 15px 10px;
+  height: 35px;
+  padding-left: 10px;
+  border: none;
+  color: rgb(0, 0, 0);
+  background-color: #f6f6f6;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.64px;
+}
+#checkbox {
+  margin: 20px 15px;
+  transform: scale(1.5);
+  border: 6px solid rgb(143, 73, 26);
+}
+label {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "Arial Rounded MT Bold";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 115%; /* 18.4px */
+  text-transform: capitalize;
+  margin : 0px 30px;
+}
+.sign-in-button {
+  width: 90%;
+  margin: 15px 12px 15px 12px;
+  height: 35px;
+  background-color: #f6f6f6;
+  border: none;
+}
+.sign-in-div {
+  display: flex;
+  justify-content: space-between;
+  margin: 17px 15px;
+  font-weight: bold;
+}
+.box-content {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-family: "Arial Rounded MT Bold";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 30px */
+}
+.line {
+  border-bottom: 1px solid #b2b2b2;
+  margin: 4px 15px;
+}
+.end-text {
+  text-align: center;
+  font-size: 12px;
+  margin: 17px;
+}
+
+.pubg {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/pubg.svg");
+  background-size: 100% 100%;
+}
+.valorant {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/valorant.svg");
+  background-size: 100% 100%;
+}
+.coc {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/coc.svg");
+  background-size: 100% 100%;
+}
+.cod {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/codm.svg");
+  background-size: 100% 100%;
+}
+
+/* footer */
+.footer-list {
+  color: white;
+  display: flex;
+  gap: 60px;
+  padding: 10px;
+  position: absolute;
+  bottom: 5%;
+  list-style-type: none;
+  padding: 0 20px;
+  color: #f6f6f6;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 /* Privacy policy */
-.peepee{
-    height: 100vh;
-    width : 100vw;
-    background-image: url("./assets/peepee.svg");
-    background-size: cover; 
+.peepee {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("./assets/peepee.svg");
+  background-size: cover;
 }
-.peepee-doc{
-    height: 75vh;
-    width : 25vw;
-   background-color: white;
-   overflow-y: scroll;
-   position: absolute;
-   top : 50%;
-   left:50%;
-   transform: translate(-50%, -50%);
-   border-radius : 20px;
-   scrollbar-width: none;
-    padding : 5px 20px;
-   font-family: Arial, Helvetica, sans-serif;
-   font-size : 14px;
-   color : rgb(0, 0, 0,0.5);
+.peepee-doc {
+  height: 75vh;
+  width: 25vw;
+  background-color: white;
+  overflow-y: scroll;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  scrollbar-width: none;
+  padding: 5px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: rgb(0, 0, 0, 0.5);
 }
-.peepee-doc h3{
-    font-weight : bold;
-    font-size : 28px;
-    text-align : center;
-    color :rgb(0, 0, 0);
+.peepee-doc-heading {
+  font-weight: bold;
+  font-size: 28px;
+  text-align: center;
+  color: rgb(0, 0, 0);
 }
- 
+.peepee-doc-content {
+  margin-top: 50px;
+}
