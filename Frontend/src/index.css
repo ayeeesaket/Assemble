@@ -18,91 +18,48 @@
   width: 100vw;
   margin-bottom: 0px;
 }
-
-/* sign in box */
-
-.sign-in-box {
-  background-color: white;
-  height: 65vh;
-  width: 23vw;
-  border-radius: 20px;
-  padding: 8px 8px 0px 8px;
-  position: absolute;
-  top: 15%;
-  left: 70%;
-  /* font-family: "Varela Round", sans-serif; */
-  font-family: "Varela Round", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-.sign-in-box-heading {
+ .sign-in-box{
+    background-color: white;
+    height: 450px;
+    width: 350px;
+    border-radius: 20px;
+    padding: 15px 25px;
+    position: absolute;
+    top: 15%;
+    left: 70%;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display : flex;
+    flex-direction: column;
+    justify-content: space-between;
+     
+ }
+ .sign-in-box-heading{
+ 
   text-align: center;
   font-weight: lighter;
-  font-size: 25px;
 }
-.back-button {
-  position: relative;
-  top: 100px;
+.input-box{
+  background-color: #F6F6F6;
+  padding : 5px;
 }
-.input-text {
-  width: 90%;
-  margin: 17px 10px;
-  height: 35px;
-  padding-left: 10px;
-  border: none;
-  color: rgb(0, 0, 0);
-  background-color: #f6f6f6;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.64px;
+ 
+.sign-in-button{
+  border : 1px solid black;
+  border-radius : 10px;
+  padding : 8px 0;
+  font-size: small;
+  font-weight: bolder;
 }
-#checkbox {
-  margin: 22px 15px;
-  transform: scale(1.5);
-  border: 6px solid rgb(143, 73, 26);
-}
-label {
-  color: rgba(0, 0, 0, 0.5);
-  font-family: "Arial Rounded MT Bold";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 115%; /* 18.4px */
-  text-transform: capitalize;
-  margin: 0px 0px;
-}
-.sign-in-button {
-  width: 90%;
-  margin: 15px 12px 15px 12px;
-  height: 35px;
-  background-color: #f6f6f6;
-  border-radius: 10px;
-  border: 1px solid black;
-}
-.sign-in-div {
-  display: flex;
-  justify-content: space-between;
-  margin: 17px 15px;
-  font-weight: bold;
-}
-.box-content {
-  color: rgba(0, 0, 0, 0.5);
-  text-align: center;
-  font-family: "Arial Rounded MT Bold";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 30px */
-}
-.line {
+ .line {
   border-bottom: 1.5px solid #b2b2b2;
-  margin: 4px 15px;
+  margin: 4px;
 }
-
-.end-text {
+.end-text{
   text-align: center;
-  font-size: 12px;
-  margin: 20px;
+  font-size: 10px;
+  font-weight : 400;
 }
 
 .pubg {
