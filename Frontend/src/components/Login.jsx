@@ -3,21 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const [isLogin, setIslogin] = useState(false);
-  const LoginHandler = () => {
-    setIslogin(!isLogin);
-  };
-  const [Fullname, setFullname] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-  const getInputData = (e) => {
-    e.preventDefault();
-    console.log(Email, Password, Fullname);
-  };
-  const navigate = useNavigate();
-  const handleNewRegister = () => {
-    navigate("/Register");
-  };
+
   return (
     <>
       {" "}
