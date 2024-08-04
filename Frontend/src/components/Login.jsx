@@ -1,9 +1,14 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
- 
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
 
+  const handlePrivacyPolicyClick4 = () => {
+    console.log("hello");
+    navigate('/Register');
+  };
   return (
     <>
   
@@ -25,7 +30,7 @@ const Login = () => {
             <button className="sign-in-button">CONTINUE</button>
             <div className="flex justify-between">
               <button className="">Can&apos;t Sign In</button>
-              <button className="">Create a New Account</button>
+              <button className="" onClick={handlePrivacyPolicyClick4}>Create a New Account</button>
             </div>
             <div>
               <div className="line"></div>
