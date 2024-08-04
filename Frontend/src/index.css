@@ -44,6 +44,13 @@
   background-color: #F6F6F6;
   padding : 5px;
 }
+.check-box{
+  accent-color:#582000 ;
+}
+.check-box:hover{
+  accent-color:#582000 ;
+  color : white;
+}
  
 .sign-in-button{
   border : 1px solid black;
@@ -51,6 +58,11 @@
   padding : 8px 0;
   font-size: small;
   font-weight: bolder;
+}
+.sign-in-button:hover{
+  background-color: rgba(88, 32, 0, 0.75) ;
+  color :  #FFF;
+  transition : 1s;
 }
  .line {
   border-bottom: 1.5px solid #b2b2b2;
@@ -86,7 +98,34 @@
   background-image: url("./assets/codm.svg");
   background-size: 100% 100%;
 }
-
+.pubg:hover {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/pubg-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
+.cod:hover{
+   height: 25px;
+  width: 50px;
+  background-image: url("./assets/codm-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
+.coc:hover{
+    height: 25px;
+  width: 50px;
+  background-image: url("./assets/coc-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
+.valorant:hover {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/valorant-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
 /* footer */
 .footer-list {
   color: white;
@@ -129,6 +168,8 @@
   color: rgb(0, 0, 0, 0.5);
 }
 .peepee-doc-heading {
+  position: fixed;
+  width : 100%;
   font-weight: bold;
   font-size: 28px;
   text-align: center;
