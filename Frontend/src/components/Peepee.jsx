@@ -6,7 +6,7 @@ const Peepee = () => {
       <div className="peepee">
          <div className="peepee-doc">
             <h3 className='peepee-doc-heading'>Privacy Policy</h3>
-                <p classname ="peepee-doc-content">
+                <p className ="peepee-doc-content">
             Introduction: <br/>    
 Welcome to Gamezone United! We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This Privacy Policy outlines how we collect, use, and protect your data when you interact with our website and services.<br/><br/>
 

@@ -5,7 +5,7 @@ const TC = () => {
     <div className='peepee'>
       <div className="peepee-doc">
       <h3 className = "peepee-doc-heading">Terms Of Service </h3>
-      <p classname ="peepee-doc-content">
+      <p className ="peepee-doc-content">
 Introduction<br/>
 Welcome to Gamezone United! By accessing and using our website and services, you agree to comply with and be bound by these Terms of Service. Please read them carefully. If you do not agree with any part of these terms, you should not use our services.<br/><br/>
 

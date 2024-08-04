@@ -44,6 +44,14 @@
   background-color: #F6F6F6;
   padding : 5px;
 }
+.check-box{
+
+  accent-color:#582000 ;
+}
+.check-box:hover{
+  accent-color:#582000 ;
+  color : white;
+}
  
 .sign-in-button{
   border : 1px solid black;
@@ -51,6 +59,11 @@
   padding : 8px 0;
   font-size: small;
   font-weight: bolder;
+}
+.sign-in-button:hover{
+  background-color: rgba(88, 32, 0, 0.75) ;
+  color :  #FFF;
+  transition : 1s;
 }
  .line {
   border-bottom: 1.5px solid #b2b2b2;
@@ -86,7 +99,34 @@
   background-image: url("./assets/codm.svg");
   background-size: 100% 100%;
 }
-
+.pubg:hover {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/pubg-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
+.cod:hover{
+   height: 25px;
+  width: 50px;
+  background-image: url("./assets/codm-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
+.coc:hover{
+    height: 25px;
+  width: 50px;
+  background-image: url("./assets/coc-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
+.valorant:hover {
+  height: 25px;
+  width: 50px;
+  background-image: url("./assets/valorant-brown.svg");
+  background-size: 100% 100%;
+  transition : 1s;
+}
 /* footer */
 .footer-list {
   color: white;
@@ -106,12 +146,13 @@
 }
 
 /* Privacy policy */
-.peepee {
+ .peepee {
   height: 100vh;
   width: 100vw;
   background-image: url("./assets/peepee.svg");
   background-size: cover;
 }
+
 .peepee-doc {
   height: 75vh;
   width: 25vw;
@@ -123,17 +164,25 @@
   transform: translate(-50%, -50%);
   border-radius: 20px;
   scrollbar-width: none;
-  padding: 5px 20px;
+  padding: 0 20px; /* No padding-top to avoid extra space */
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
-  color: rgb(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.5);
 }
+
 .peepee-doc-heading {
+  position: sticky; /* Makes the heading stick at the top of the container */
+  top: 0; /* Sticks the heading to the top of the container */
+  background-color: white; /* Ensures readability */
   font-weight: bold;
   font-size: 28px;
   text-align: center;
   color: rgb(0, 0, 0);
+  z-index: 1; /* Ensures it is above other content */
+  padding: 10px 0; /* Adds some padding for better appearance */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Optional: Adds a border for separation */
 }
+
 .peepee-doc-content {
-  margin-top: 50px;
+  padding-top: 20px; /* Adds space for the sticky heading */
 }
