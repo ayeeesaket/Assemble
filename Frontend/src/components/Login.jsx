@@ -1,9 +1,15 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
- 
+import { useNavigate } from "react-router-dom";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 const Login = () => {
+  const navigate = useNavigate();
 
+  const handlePrivacyPolicyClick4 = () => {
+    console.log("hello");
+    navigate('/Register');
+  };
   return (
     <>
   
@@ -12,12 +18,13 @@ const Login = () => {
           <Header />
 
           <div className="sign-in-box ">
-         
-              
-              <div className="sign-in-box-heading">Sign in</div>
+            <div className="container flex gap-20 items-center }">
+    <div className="back"><IoArrowBackCircleOutline size={28}/></div>
+              <div className="sign-in-box-heading ">Sign In</div></div>
              
-            <input className="input-box" placeholder="Username"></input>
-            <input className="input-box" placeholder="Password"></input>
+             
+            <input className="input-box" placeholder="USERNAME"></input>
+            <input className="input-box" placeholder="PASSWORD"></input>
             <div className="flex gap-2">
               <input className = "check-box" type="checkbox" id="check-box" name="scales" />
               <label htmlFor="checkbox">Stay Signed In</label>
@@ -25,7 +32,7 @@ const Login = () => {
             <button className="sign-in-button">CONTINUE</button>
             <div className="flex justify-between">
               <button className="">Can&apos;t Sign In</button>
-              <button className="">Create a New Account</button>
+              <button className="" onClick={handlePrivacyPolicyClick4}>Create a New Account</button>
             </div>
             <div>
               <div className="line"></div>
