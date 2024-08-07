@@ -4,9 +4,17 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+ 
+
 }
+@font-face {
+  font-family: 'Arial Rounded MT Bold';
+  src: url('./fonts/ArialRoundedMTBold.woff2') format('woff2'), /* Adjust the path and format as needed */
+       url('./fonts/ArialRoundedMTBold.woff') format('woff');
+  
+}
+
+ 
 
 .body {
   background-image: url("../public/vite.png");
@@ -19,30 +27,39 @@
   margin-bottom: 0px;
 }
  .sign-in-box{
+ 
+    
     background-color: white;
     height: 450px;
     width: 350px;
     border-radius: 20px;
-    padding: 15px 25px;
+    padding: 20px 25px;
     position: absolute;
     top: 15%;
     left: 70%;
-    font-family: "Varela Round", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+   
+    
+    
     display : flex;
     flex-direction: column;
     justify-content: space-between;
      
  }
  .sign-in-box-heading{
- 
+  color: #000;
   text-align: center;
-  font-weight: lighter;
+  font-family: "Arial Rounded MT Bold";
+  font-size: 21px;
+  font-style: normal;
+   
+  /* font-weight: 400; */
+   
 }
+ 
 .input-box{
   background-color: #F6F6F6;
   padding : 5px;
+  font-size: 80%;
 }
 .check-box{
 

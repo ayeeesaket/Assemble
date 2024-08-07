@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 const Login = () => {
   const navigate = useNavigate();
 
@@ -17,12 +18,13 @@ const Login = () => {
           <Header />
 
           <div className="sign-in-box ">
-         
-              
-              <div className="sign-in-box-heading">Sign in</div>
+            <div className="container flex gap-20 items-center }">
+    <div className="back"><IoArrowBackCircleOutline size={28}/></div>
+              <div className="sign-in-box-heading ">Sign In</div></div>
              
-            <input className="input-box" placeholder="Username"></input>
-            <input className="input-box" placeholder="Password"></input>
+             
+            <input className="input-box" placeholder="USERNAME"></input>
+            <input className="input-box" placeholder="PASSWORD"></input>
             <div className="flex gap-2">
               <input className = "check-box" type="checkbox" id="check-box" name="scales" />
               <label htmlFor="checkbox">Stay Signed In</label>
