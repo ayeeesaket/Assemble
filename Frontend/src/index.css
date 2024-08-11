@@ -9,12 +9,9 @@
 }
 @font-face {
   font-family: 'Arial Rounded MT Bold';
-  src: url('./fonts/ArialRoundedMTBold.woff2') format('woff2'), /* Adjust the path and format as needed */
-       url('./fonts/ArialRoundedMTBold.woff') format('woff');
-  
+  src: url('./assets/fonts/arialroundedmtbold.woff2') format('woff2'),
+  /* url('./fonts/ArialRoundedMTBold.woff') format('woff'); */
 }
-
- 
 
 .body {
   background-image: url("../public/vite.png");
@@ -26,29 +23,27 @@
   width: 100vw;
   margin-bottom: 0px;
 }
- .sign-in-box{
- 
-    
-    background-color: white;
-    height: 450px;
+.sign-in-box{
+  
+  
+  background-color: white;
+  height: 450px;
     width: 350px;
     border-radius: 20px;
     padding: 20px 25px;
     position: absolute;
     top: 15%;
     left: 70%;
-   
-    
-    
     display : flex;
     flex-direction: column;
     justify-content: space-between;
-     
- }
- .sign-in-box-heading{
+    
+  }
+  .sign-in-box-heading{
+   font-family: 'Arial Rounded MT Bold';
   color: #000;
   text-align: center;
-  font-family: "Arial Rounded MT Bold";
+  /* font-family: "Arial Rounded MT Bold"; */
   font-size: 21px;
   font-style: normal;
    
