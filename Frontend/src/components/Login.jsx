@@ -18,8 +18,8 @@ const Login = () => {
           <Header />
 
           <div className="sign-in-box ">
-            <div className="container flex gap-20 items-center }">
-    <div className="back"><IoArrowBackCircleOutline size={28}/></div>
+            <div className="container ">
+    {/* <div className="back"><IoArrowBackCircleOutline size={28}/></div> */}
               <div className="sign-in-box-heading ">Sign In</div></div>
              
              
@@ -27,12 +27,12 @@ const Login = () => {
             <input className="input-box" placeholder="PASSWORD"></input>
             <div className="flex gap-2">
               <input className = "check-box" type="checkbox" id="check-box" name="scales" />
-              <label htmlFor="checkbox">Stay Signed In</label>
+              <label className="check-text font-medium" htmlFor="checkbox">Stay Signed In</label>
             </div>
             <button className="sign-in-button">CONTINUE</button>
             <div className="flex justify-between">
-              <button className="">Can&apos;t Sign In</button>
-              <button className="" onClick={handlePrivacyPolicyClick4}>Create a New Account</button>
+              <button className="font-medium">Can&apos;t Sign In</button>
+              <button className="font-medium" onClick={handlePrivacyPolicyClick4}>Create a New Account</button>
             </div>
             <div>
               <div className="line"></div>

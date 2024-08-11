@@ -5,12 +5,15 @@
   margin: 0;
   padding: 0;
  
-
+ 
 }
 @font-face {
   font-family: 'Arial Rounded MT Bold';
-  src: url('./assets/fonts/arialroundedmtbold.woff2') format('woff2'),
-  /* url('./fonts/ArialRoundedMTBold.woff') format('woff'); */
+  src: url('./assets/fonts/arialroundedmtbold.woff2') format('woff2');
+}
+@font-face {
+font-family:'AGENCYB';
+src : url("./assets/fonts/AGENCYB\ \(1\).woff2");
 }
 
 .body {
@@ -24,26 +27,23 @@
   margin-bottom: 0px;
 }
 .sign-in-box{
-  
-  
   background-color: white;
-  height: 450px;
-    width: 350px;
+  height: 70vh;
+    width: 25vw;
     border-radius: 20px;
     padding: 20px 25px;
     position: absolute;
     top: 15%;
-    left: 70%;
+    right :5%;
     display : flex;
     flex-direction: column;
     justify-content: space-between;
-    
   }
   .sign-in-box-heading{
    font-family: 'Arial Rounded MT Bold';
   color: #000;
   text-align: center;
-  /* font-family: "Arial Rounded MT Bold"; */
+  
   font-size: 21px;
   font-style: normal;
    
@@ -54,10 +54,17 @@
 .input-box{
   background-color: #F6F6F6;
   padding : 5px;
-  font-size: 80%;
+  letter-spacing: 0.64px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.input-box::placeholder{
+  font-size : 13px;
+  font-weight: 600;
+  color: #000;
 }
 .check-box{
-
+  font-weight: bolder;
   accent-color:#582000 ;
 }
 .check-box:hover{
@@ -84,7 +91,7 @@
 .end-text{
   text-align: center;
   font-size: 10px;
-  font-weight : 400;
+  font-weight : 600;
 }
 
 .pubg {
