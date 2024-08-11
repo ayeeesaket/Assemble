@@ -12,8 +12,8 @@
   src: url('./assets/fonts/arialroundedmtbold.woff2') format('woff2');
 }
 @font-face {
-font-family:'AGENCYB';
-src : url("./assets/fonts/AGENCYB\ \(1\).woff2");
+font-family:'Agencyfb';
+src : url("./assets/fonts/agencyfb.woff2");
 }
 
 .body {
@@ -26,10 +26,29 @@ src : url("./assets/fonts/AGENCYB\ \(1\).woff2");
   width: 100vw;
   margin-bottom: 0px;
 }
+.navbar {
+  display: flex;
+  color:#b2b2b2 ;
+  padding : 10px 10px;
+  flex-direction: column;
+  font-family: 'Agencyfb';
+}
+
+.assemble {
+  height: 35px;
+  font-size: 35px;
+  margin-right: 10px; /* Adjust this value as needed */
+}
+
+.GUI {
+ 
+}
+
+
 .sign-in-box{
   background-color: white;
-  height: 70vh;
-    width: 25vw;
+  height: 70%;
+    width: 25%;
     border-radius: 20px;
     padding: 20px 25px;
     position: absolute;
@@ -43,11 +62,8 @@ src : url("./assets/fonts/AGENCYB\ \(1\).woff2");
    font-family: 'Arial Rounded MT Bold';
   color: #000;
   text-align: center;
-  
   font-size: 21px;
   font-style: normal;
-   
-  /* font-weight: 400; */
    
 }
  
@@ -204,4 +220,35 @@ src : url("./assets/fonts/AGENCYB\ \(1\).woff2");
 
 .peepee-doc-content {
   padding-top: 20px; /* Adds space for the sticky heading */
+}
+
+/* responsive */
+@media (min-width: 1280px) and (max-width: 1440px) {
+  .page {
+    max-width: 90%;
+    padding: 25px;
+  }
+
+  .sign-in-box-heading {
+    font-size: 26px;
+  }
+
+  .input-box {
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .sign-in-button {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .end-text {
+    font-size: 14px;
+  }
+
+  .logo div {
+    height: 40px;
+  }
 }

@@ -1,8 +1,7 @@
-import React from "react";
+// import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
 const Login = () => {
   const navigate = useNavigate();
 
