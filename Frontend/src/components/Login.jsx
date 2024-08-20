@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
-
   const handlePrivacyPolicyClick4 = () => {
     console.log("hello");
     navigate('/Register');

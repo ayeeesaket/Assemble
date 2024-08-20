@@ -5,6 +5,7 @@ import Browse from './Browse';
 import Peepee from './Peepee';
 import TC from './TC';
 import CreateAnewAccount from './CreateAnewAccount';
+import EmailVerification from './EmailVerification';
 
 const Body = () => {
   const approuter = createBrowserRouter([
@@ -12,7 +13,9 @@ const Body = () => {
     { path: "/browse", element: <Browse /> },
     { path: "/Peepee", element: <Peepee /> },
     { path:"/Terms",element:<TC/>},
-    {path :"/Register",element :<CreateAnewAccount/>}
+    { path: "/Register", element: <CreateAnewAccount /> },
+    { path: "/EmailVerification", element: <EmailVerification /> }
+    
   ]);
 
   return (
