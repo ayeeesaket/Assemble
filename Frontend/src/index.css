@@ -63,9 +63,9 @@ font-size: 20px;
   }
   .container{
     flex-direction: column;
-    justify-content: space-between;
-    
+    justify-content: flex-start;
   }
+  
   .sign-in-box-heading{
    font-family: 'Arial Rounded MT Bold';
   color: #000;

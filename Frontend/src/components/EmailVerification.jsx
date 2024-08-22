@@ -1,8 +1,18 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const CreateAnewAccount = () => {
+  const navigate = useNavigate();
+  const handlePrivacyPolicyClick6 = () => {
+    navigate("/GamerTag");
+  };
+  const handlePrivacyPolicyClickMinus5 = () => {
+    console.log("hello");
+    navigate("/Register");
+  };
   
   return (
     <>
@@ -12,8 +22,12 @@ const CreateAnewAccount = () => {
 
           <div className="sign-in-box ">
             <div className="container flex gap-2">
-              {/* <div className="back"><IoArrowBackCircleOutline size={28}/></div> */}
-              <div className="sign-in-box-heading ">Email Verification</div>
+              <div className="flex flex-row gap-16">
+                <div className="back" onClick={handlePrivacyPolicyClickMinus5}>
+                  <IoArrowBackCircleOutline size={28} />
+                </div>
+                <div className="sign-in-box-heading ">Email Verification</div>
+              </div>
               <div className="head-text">
                 Confirm your Identity To Showcase Your Gaming Skills In Esports
                 World
@@ -24,25 +38,30 @@ const CreateAnewAccount = () => {
               <div className="enter-otp">ENTER OTP</div>
               <div className="flex justify-between">
                 <>
-                <input  className="input-otp" placeholder="_"></input>
+                  <input className="input-otp" placeholder="_"></input>
                 </>
                 <>
-                <input  className="input-otp" placeholder="_"></input>
+                  <input className="input-otp" placeholder="_"></input>
                 </>
                 <>
-                <input  className="input-otp" placeholder="_"></input>
+                  <input className="input-otp" placeholder="_"></input>
                 </>
                 <>
-                <input  className="input-otp" placeholder="_"></input>
+                  <input className="input-otp" placeholder="_"></input>
                 </>
                 <>
-                <input  className="input-otp" placeholder="_"></input>
+                  <input className="input-otp" placeholder="_"></input>
                 </>
                 <>
-                <input  className="input-otp" placeholder="_"></input>
+                  <input className="input-otp" placeholder="_"></input>
                 </>
               </div>
-              <button className="sign-in-button">CONTINUE</button>
+              <button
+                className="sign-in-button"
+                onClick={handlePrivacyPolicyClick6}
+              >
+                CONTINUE
+              </button>
             </div>
 
             <div className="flex flex-col gap-5">
