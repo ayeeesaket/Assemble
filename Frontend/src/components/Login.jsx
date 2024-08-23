@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handlePrivacyPolicyClick4 = () => {
     console.log("hello");
-    navigate("/EmailVerification");
+    navigate("/Register");
   };
   return (
     <>
@@ -18,7 +18,6 @@ const Login = () => {
 
           <div className="sign-in-box ">
             <div className="container ">
-               
               <div className="sign-in-box-heading ">Sign In</div>
             </div>
 
