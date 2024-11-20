@@ -33,7 +33,7 @@ const userSchema = new Schema({
     },
     badge: {
         type: String,
-        enum: ["newbie", "sniper", "rusher", ],
+        enum: ["newbie", "sniper", "rusher", "assaulter"],
         default: "newbie",
     },
     game_id: {
