@@ -1,33 +1,62 @@
-import mongoose from mongoose;
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
-    id:{
-        type:String,
-        required:true,
-        unique:true,
-    },
-    username:{
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-    },
+const userSchema = new Schema({
     email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    username: {
         type: String,
         required: true,
         unique: true,
         lowercase: true,
-      },
+        index: true
+    },
     password: {
         type: String,
         required: true,
     },
-    tournament_registered:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Tournament'
-    }
-},
-{timestamps:true}
-);
+    name: {
+        firstName: {
+            type: String,
+            default: "",
+        },
+        lastName: {
+            type: String,
+            default: "",
+        },
+    },
+    age: {
+        type: Number,
+    },
+    badge: {
+        type: String,
+        enum: ["newbie", "sniper", "rusher", ],
+        default: "newbie",
+    },
+    game_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Game"
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    verificationCode: {
+        type: Number
+    },
+}, {
+    timestamps: true,
+});
 
-export const User = mongoose.model("User",userSchema);
+userSchema.pre("save", async function(next) {
+    if (!this.isModified("password")) {
+        return next();
+    }
+    this.password = await bcrypt.hash(this.password, 13);
+    next();
+});
+
+export const User = mongoose.model("User", userSchema);
