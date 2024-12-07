@@ -1,18 +1,18 @@
-//  import React from 'react'
+import React from "react";
 
-const Header = () => {
+const HeaderPR = () => {
   return (
-    <div>
+    <>
       <div className="body">
-        <div className="page">
+        <div className="navbar-div">
           <div className="navbar">
             <div className="assemble">ASSEMBLE</div>
             <div className="GUI">GAMEZONE UNITED INDIA</div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Header;
+export default HeaderPR;

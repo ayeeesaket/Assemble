@@ -4,37 +4,46 @@
 * {
   margin: 0;
   padding: 0;
- 
- 
 }
 @font-face {
-  font-family: 'Arial Rounded MT Bold';
-  src: url('./assets/fonts/arialroundedmtbold.woff2') format('woff2');
+  font-family: "Arial Rounded MT Bold";
+  src: url("./assets/fonts/arialroundedmtbold.woff2") format("woff2");
 }
 @font-face {
-font-family:'Agencyfb';
-src : url("./assets/fonts/agencyfb.woff2");
+  font-family: "Agencyfb";
+  src: url("./assets/fonts/agencyfb.woff2");
+}
+@font-face {
+  font-family: "BebasNeue";
+  src: url("./assets/fonts/BebasNeueRegular.woff2") format("woff2");
 }
 
-.body {
+ 
+.page {
   background-image: url("../public/vite.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-}
-.page {
   height: 100vh;
   width: 100vw;
   margin-bottom: 0px;
 }
+.page-2 {
+  background-image: url("../public/page2.png");
+  background-size: 100% 100%;
+  background-repeat: repeat-y;
+  height: 200vh;
+  width: 100vw;
+}
 .navbar {
-  height : 10%;
+  height: 10%;
   display: flex;
-  color : white;
-  padding : 10px 20px;
+  color: white;
+  padding: 10px 20px;
   flex-direction: column;
-  font-family: 'Agencyfb';
+  font-family: "Agencyfb";
   justify-content: space-around;
-  row-gap : 0px;
+  row-gap: 0px;
+  z-index: 10;
 }
 
 .assemble {
@@ -43,123 +52,119 @@ src : url("./assets/fonts/agencyfb.woff2");
 }
 
 .GUI {
- height: 24px;
-font-size: 20px;
+  height: 24px;
+  font-size: 20px;
 }
 
-
-.sign-in-box{
+.sign-in-box {
   background-color: white;
   height: 70%;
-    width: 25%;
-    border-radius: 20px;
-    padding: 20px 25px;
-    position: absolute;
-    top: 15%;
-    right :5%;
-    display : flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .container{
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  .sign-in-box-heading{
-   font-family: 'Arial Rounded MT Bold';
+  width: 25%;
+  border-radius: 20px;
+  padding: 20px 25px;
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.container {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sign-in-box-heading {
+  font-family: "Arial Rounded MT Bold";
   color: #000;
   text-align: center;
   font-size: 21px;
   font-style: normal;
-   
 }
-.head-text{
-  color: rgba(0, 0, 0, 0.50);
+.head-text {
+  color: rgba(0, 0, 0, 0.5);
   text-align: center;
   font-family: "Arial Rounded MT Bold";
-  font-size : 14px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 150%; /* 30px */
 }
-.input-box{
-  background-color: #F6F6F6;
-  padding : 5px;
+.input-box {
+  background-color: #f6f6f6;
+  padding: 5px;
   letter-spacing: 0.64px;
   font-size: 15px;
   font-weight: 600;
-  border : none;
+  border: none;
 }
-.input-box::placeholder{
-  font-size : 13px;
+.input-box::placeholder {
+  font-size: 13px;
   font-weight: 600;
   color: #000;
 }
-.input-box:focus{
-   outline: none;
-  border : none;
- }
- .input-otp{
-  width : 10%;
-  background-color: #F6F6F6;
-  padding : 5px;
+.input-box:focus {
+  outline: none;
+  border: none;
+}
+.input-otp {
+  width: 10%;
+  background-color: #f6f6f6;
+  padding: 5px;
   letter-spacing: 0.64px;
   font-size: 15px;
   font-weight: 600;
-  border : none;
+  border: none;
   text-align: center;
 }
-.input-otp::placeholder{
-  font-size : 13px;
+.input-otp::placeholder {
+  font-size: 13px;
   font-weight: 600;
   color: #000;
 }
-.input-otp:focus{
-   outline: none;
-  border : none;
- }
-.check-box{
+.input-otp:focus {
+  outline: none;
+  border: none;
+}
+.check-box {
   font-weight: bolder;
-  accent-color:#582000 ;
+  accent-color: #582000;
 }
-.check-box:hover{
-  accent-color:#582000 ;
-  color : white;
+.check-box:hover {
+  accent-color: #582000;
+  color: white;
 }
-.check-text-register{
-  color: rgba(0, 0, 0, 0.50);
+.check-text-register {
+  color: rgba(0, 0, 0, 0.5);
   font-family: "Arial Rounded MT Bold";
-   font-size: 12px;
- 
+  font-size: 12px;
+
   font-weight: 400;
   line-height: 115%; /* 18.4px */
- 
 }
-.enter-otp{
+.enter-otp {
   font-family: "Arial Rounded MT Bold";
   font-size: 80%;
-  
 }
-.sign-in-button{
-  border : 1px solid black;
-  border-radius : 10px;
-  padding : 8px 0;
+.sign-in-button {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 8px 0;
   font-size: small;
   font-weight: bolder;
 }
-.sign-in-button:hover{
-  background-color: rgba(88, 32, 0, 0.75) ;
-  color :  #FFF;
-  transition : 1s;
+.sign-in-button:hover {
+  background-color: rgba(88, 32, 0, 0.75);
+  color: #fff;
+  transition: 1s;
 }
- .line {
+.line {
   border-bottom: 1.5px solid #b2b2b2;
   margin: 4px;
 }
-.end-text{
+.end-text {
   text-align: center;
   font-size: 10px;
-  font-weight : 600;
+  font-weight: 600;
 }
 
 .pubg {
@@ -191,28 +196,28 @@ font-size: 20px;
   width: 50px;
   background-image: url("./assets/pubg-brown.svg");
   background-size: 100% 100%;
-  transition : 1s;
+  transition: 1s;
 }
-.cod:hover{
-   height: 25px;
+.cod:hover {
+  height: 25px;
   width: 50px;
   background-image: url("./assets/codm-brown.svg");
   background-size: 100% 100%;
-  transition : 1s;
+  transition: 1s;
 }
-.coc:hover{
-    height: 25px;
+.coc:hover {
+  height: 25px;
   width: 50px;
   background-image: url("./assets/coc-brown.svg");
   background-size: 100% 100%;
-  transition : 1s;
+  transition: 1s;
 }
 .valorant:hover {
   height: 25px;
   width: 50px;
   background-image: url("./assets/valorant-brown.svg");
   background-size: 100% 100%;
-  transition : 1s;
+  transition: 1s;
 }
 /* footer */
 .footer-list {
@@ -233,7 +238,7 @@ font-size: 20px;
 }
 
 /* Privacy policy */
- .peepee {
+.peepee {
   height: 100vh;
   width: 100vw;
   background-image: url("./assets/peepee.svg");
@@ -274,33 +279,67 @@ font-size: 20px;
   padding-top: 20px; /* Adds space for the sticky heading */
 }
 
-/* responsive */
-/* @media (min-width: 1280px) and (max-width: 1440px) {
-  .page {
-    max-width: 90%;
-    padding: 25px;
+@media (max-width: 1200px) {
+  .sign-in-box {
+    width: 55%;
   }
+}
 
-  .sign-in-box-heading {
-    font-size: 26px;
-  }
+/* PASSWORD RECOVERY */
+.pr-page {
+  background-image: url("../public/page2.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  margin-bottom: 0px;
+}
+.pr-container {
+  height: 75%;
+  width: 25%;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pr-top-box {
+  display: flex;
+  justify-content: space-between;
+}
+.forgot-pass {
+  background-color: white;
+  padding: 5px 30px;
+  font-family:"BebasNeue";
+  font-weight : bold;
+  font-size : 18px;
+  margin : 5px;
+}
 
-  .input-box {
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 16px;
-  }
-
-  .sign-in-button {
-    padding: 12px;
-    font-size: 16px;
-  }
-
-  .end-text {
-    font-size: 14px;
-  }
-
-  .logo div {
-    height: 40px;
-  }
-} */
+.pr-bottom-box {
+  background-color: white;
+  height: 93%;
+  width: 100%;
+  border-radius: 20px;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pr-box-content {
+  /* font-family: Arial, Helvetica, sans-serif;
+ */
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.pass-image{
+  background-image: url("./assets/verifyPass.svg");
+  height : 50%;
+  width : full;
+  background-size: cover;
+}
+ 
+ 

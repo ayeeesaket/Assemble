@@ -1,7 +1,6 @@
 // import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 import { useNavigate } from "react-router-dom";
 const Login = () => {
@@ -9,6 +8,10 @@ const Login = () => {
   const handlePrivacyPolicyClick4 = () => {
     console.log("hello");
     navigate("/Register");
+  };
+  const cantSignin = () => {
+    console.log("hello");
+    navigate("/PassRecovery");
   };
   return (
     <>
@@ -36,7 +39,9 @@ const Login = () => {
             </div>
             <button className="sign-in-button">CONTINUE</button>
             <div className="flex justify-between">
-              <button className="font-medium">Can&apos;t Sign In</button>
+              <button className="font-medium" onClick={cantSignin}>
+                Can&apos;t Sign In
+              </button>
               <button
                 className="font-medium"
                 onClick={handlePrivacyPolicyClick4}
