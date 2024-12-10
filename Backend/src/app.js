@@ -24,14 +24,8 @@ app.use(cookieParser());
 import healthRouter from "./routes/healthcheck.routes.js";
 app.use("/api/v1", healthRouter);
 
-<<<<<<< HEAD
-// USER ROUTES
-import userRouter from "./routes/user.routes.js";
-app.use("/api/v1/user", userRouter);
-=======
 //user route import
 import userRouter from "./routes/user.routes.js";
-app.use("/api/v1/users",userRouter)
->>>>>>> e3225ff3aec7d06d80cfcae9fcd4c35f29cea09d
+app.use("/api/v1/users", userRouter)
 
 export default app;
