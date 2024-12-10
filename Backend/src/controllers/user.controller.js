@@ -5,7 +5,7 @@ import  ApiResponse  from "../utils/ApiResponse.js";
 
 
 const registerUser = asyncHanlder( async (req,res)=>{
-    const { username , email , password , age } = req.body;
+    const { username , email , password , age , name } = req.body;
 
     if (
         [username,email,password].some((field)=>
@@ -26,6 +26,7 @@ const registerUser = asyncHanlder( async (req,res)=>{
     const user = await User.create({
         email,
         username,
+        name,
         password,
         age
     })
