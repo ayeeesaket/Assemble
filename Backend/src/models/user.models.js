@@ -36,10 +36,6 @@ const userSchema = new Schema({
         enum: ["newbie", "sniper", "rusher", "assaulter"],
         default: "newbie",
     },
-    game_id: {
-        type: Schema.Types.ObjectId,
-        ref: "Game"
-    },
     isVerified: {
         type: Boolean,
         default: false,
