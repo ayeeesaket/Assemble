@@ -4,6 +4,7 @@ import { User } from "../models/user.models.js";
 import ApiResponse  from "../utils/ApiResponse.js";
 import { COOKIE_OPTIONS } from "../constants.js";
 import jwt from "jsonwebtoken";
+import { sendVerificationEmail } from "../utils/nodemailer/email.js";
 
 const registerUser = asyncHandler( async (req,res) => {
     const { username, email, password } = req.body;
@@ -18,12 +19,16 @@ const registerUser = asyncHandler( async (req,res) => {
         throw new ApiError(409, "User Already Exists.")
     }
 
+    const verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+
     try {
         const user = await User.create({
             username,
             email,
-            password
+            password,
+            verificationCode
         });
+        await sendVerificationEmail(user.email, user.verificationCode);
         return res
             .status(201)
             .json(new ApiResponse(201, user, "User Created Successfully."));
@@ -79,6 +84,28 @@ const loginUser = asyncHandler( async (req,res) => {
     }
 });
 
+const verifyCode = asyncHandler(async (req, res) => {
+    const { email, code } = req.body;
+    if (!(email || code)) {
+        throw new ApiError(400, "All Fields Are Required.")
+    }
+    const userFound = await User.findOne({ email });
+    if (!userFound) {
+        throw new ApiError(404, "User Not Found.")
+    }
+    if (userFound.verificationCode !== code) {
+        throw new ApiError(401, "Invalid Verification Code.")
+    }
+    try {
+        const isVerified = await userFound.updateOne({ isVerified: true });
+        return res
+            .status(200)
+            .json(new ApiResponse(200, isVerified, "User Verified Successfully."));
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error.");
+    }
+});
+
 const logoutUser = asyncHandler( async (req,res) => {
     try {
         return res
@@ -93,5 +120,6 @@ const logoutUser = asyncHandler( async (req,res) => {
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    verifyCode
 };

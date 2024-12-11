@@ -11,7 +11,13 @@ const loginUserSchema = z.object({
     password: z.string().min(5, { message: "Minimum Password Length Should Be 5 Characters." }),
 });
 
+const verifyCodeSchema = z.object({
+    email: z.string().email({ message: "Invalid Email Format" }),
+    code: z.string().min(6, { message: "Invalid Verification Code." }),
+});
+
 export {
     registerUserSchema,
     loginUserSchema,
+    verifyCodeSchema
 };
