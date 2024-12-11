@@ -16,8 +16,19 @@ const verifyCodeSchema = z.object({
     code: z.string().min(6, { message: "Invalid Verification Code." }),
 });
 
+const changeUsernameSchema = z.object({
+    newUsername: z.string().min(5, { message: "Minimum Username Length Should Be 5 Characters." }),
+});
+
+const changePasswordSchema = z.object({
+    oldPassword: z.string().min(5, { message: "Minimum Password Length Should Be 5 Characters." }),
+    newPassword: z.string().min(5, { message: "Minimum Password Length Should Be 5 Characters." }),
+});
+
 export {
     registerUserSchema,
     loginUserSchema,
-    verifyCodeSchema
+    verifyCodeSchema,
+    changeUsernameSchema,
+    changePasswordSchema,
 };
