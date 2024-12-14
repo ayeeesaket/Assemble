@@ -175,11 +175,118 @@ const changeUsername = asyncHandler( async (req,res) => {
     }
 });
 
+const addDetails = asyncHandler (async (req,res)=>{
+    const { dob ,name }=req.body;
+    const user = req.user;
+    if(!dob && !name){
+        throw new ApiError(400,"Atleast one field is required");
+    }
+    try {
+        if(name && !dob){
+            return res
+            .status(201)
+            .json(new ApiResponse(200,
+                await User.findByIdAndUpdate(
+                    user._id,
+                    { name: name},
+                    { dob: undefined}
+                ).select("-password")
+                ,"Name added Successfully"));
+        } 
+        if(!name && dob instanceof Date && !isNaN(dob)){
+            return res
+            .status(201)
+            .json(new ApiResponse(200,
+                await User.findByIdAndUpdate(
+                    user._id,
+                    { name: undefined},
+                    { dob: dob}
+                ).select("-password")
+                ,"Dob added Successfully"));
+        }
+        const updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            { name: name},
+            { dob: dob}
+        ).select("-password");
+    
+        return res
+        .status(201)
+        .json(new ApiResponse(200,updatedUser,"Name and Dob added Successfully"));
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error.")
+    }
+})
+
+const changeEmail = asyncHandler(async(req,res)=>{
+    const {newEmail} = req.body;
+
+    if (!newEmail) {
+        throw new ApiError(400, "All Fields Are Required.")
+    }
+    const user = req.user;
+    const existedEmail = await User.findOne({ email: newEmail });
+
+    if (existedEmail) {
+        throw new ApiError(409, "Email Already Exists.")
+    }
+
+    if(newEmail===user.email){
+        throw new ApiError(409,"New email cannot be the same ")
+    }
+
+    const verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+    console.log(verificationCode);
+    
+    try {
+        const newUser = await User.findByIdAndUpdate(
+            user._id,
+            { verificationCode:verificationCode },
+            { new:true }
+        ).select("-password");
+        await sendVerificationEmail(newEmail, verificationCode);
+
+        return res
+        .status(201)
+        .json(new ApiResponse(201,newUser,"Code sent successfully"))
+
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error.");
+    }
+})
+
+const verifyNewEmail = asyncHandler (async (req,res)=>{
+    //req.email pe abb naya email hai merepe already
+    const { newEmail,code } = req.body;
+    const user = req.user;
+    if (!code) {
+        throw new ApiError(400, "All Fields Are Required.")
+    }
+    if (user.verificationCode !== code) {
+        throw new ApiError(401, "Invalid Verification Code.")
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+        user._id,
+        { email: newEmail },
+        {
+            new:true
+        }
+    ).select("-password")
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200,updatedUser,"Email changed Successfully!"))
+})
+
 export {
     registerUser,
     loginUser,
     logoutUser,
     verifyCode,
     changePassword,
-    changeUsername
+    changeUsername,
+    addDetails,
+    changeEmail,
+    verifyNewEmail
 };
