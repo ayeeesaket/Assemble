@@ -12,11 +12,12 @@ import IdentityVerify from "./components/IdentityVerify";
 import ChangePass from "./components/ChangePass";
 import UsernameRecover from "./components/UsernameRecover";
 import UsernameSent from "./components/UsernameSent";
-
+import DashBoard from "./components/DashBoard";
 const App = () => {
   return (
     <>
-      <Body/>
+      {/* <Body/> */}
+      <DashBoard/>
     </>
   );
 };
