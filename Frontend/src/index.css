@@ -18,7 +18,10 @@
   src: url("./assets/fonts/BebasNeueRegular.woff2") format("woff2");
 }
 
- 
+ *{
+  cursor: url("");
+ }
+
 .page {
   background-image: url("../public/vite.png");
   background-size: 100% 100%;
@@ -341,5 +344,22 @@
   width : full;
   background-size: cover;
 }
- 
- 
+/* GAME DASHBOARD */
+.main{
+   height: 100vh;
+   width: 100vw;
+   background-image: url("../public/GD.png");
+   background-size: 100% 100%;
+  }
+  .right-sidebar{
+     height: 80%;
+     width:4%;
+     background-image: url("../public/rightsidebar.png");
+     background-size: 100% 100%;
+  }
+  .left-sidebar{
+   height: 80%;
+   width:4%;
+   background-image: url("../public/leftsidebar.png");
+   background-size: 100% 100%;
+ }
