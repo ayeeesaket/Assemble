@@ -4,7 +4,7 @@ import { User } from "../models/user.models.js";
 import ApiResponse  from "../utils/ApiResponse.js";
 import { COOKIE_OPTIONS } from "../constants.js";
 import jwt from "jsonwebtoken";
-import { sendVerificationEmail } from "../utils/nodemailer/email.js";
+import { sendVerificationEmail ,sendUsername } from "../utils/nodemailer/email.js";
 
 const registerUser = asyncHandler( async (req,res) => {
     const { username, email, password } = req.body;
@@ -256,10 +256,9 @@ const changeEmail = asyncHandler(async(req,res)=>{
 })
 
 const verifyNewEmail = asyncHandler (async (req,res)=>{
-    //req.email pe abb naya email hai merepe already
     const { newEmail,code } = req.body;
     const user = req.user;
-    if (!code) {
+    if (!code || !newEmail) {
         throw new ApiError(400, "All Fields Are Required.")
     }
     if (user.verificationCode !== code) {
@@ -279,6 +278,31 @@ const verifyNewEmail = asyncHandler (async (req,res)=>{
     .json(new ApiResponse(200,updatedUser,"Email changed Successfully!"))
 })
 
+const forgotUsername = asyncHandler( async (req,res)=>{
+    const { email }=req.body;
+
+    if(!email){
+        throw new ApiError(400,"All fields are required")
+    }
+
+    const user = await User.findOne({ email: email });
+
+    if(!user){
+        throw new ApiError(404,"Email not registered");
+    }
+    
+    try {
+        await sendUsername(email, user.username);
+        
+        return res
+        .status(201)
+        .json(new ApiResponse(201,user,"Mail sent successfully"))
+
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error.");
+    }
+})
+
 export {
     registerUser,
     loginUser,
@@ -288,5 +312,6 @@ export {
     changeUsername,
     addDetails,
     changeEmail,
-    verifyNewEmail
+    verifyNewEmail,
+    forgotUsername
 };
