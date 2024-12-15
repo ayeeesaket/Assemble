@@ -36,6 +36,12 @@ const userSchema = new Schema({
     verificationCode: {
         type: String
     },
+    newEmail: {
+        type: String,
+    },
+    newPassword: {
+        type: String,
+    }
 }, {
     timestamps: true,
 });
