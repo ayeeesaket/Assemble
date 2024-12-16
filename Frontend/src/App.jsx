@@ -13,6 +13,7 @@ import ChangePass from "./components/ChangePass";
 import UsernameRecover from "./components/UsernameRecover";
 import UsernameSent from "./components/UsernameSent";
 import DashBoard from "./components/DashBoard";
+import AccountCenter from "./components/AccountCenter"
 import Homepage from "./components/Homepage";
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
       {/* <Body/> */}
       {/* <DashBoard/> */}
       <Homepage/>
+      
     </>
   );
 };
