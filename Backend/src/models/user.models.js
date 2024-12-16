@@ -19,17 +19,10 @@ const userSchema = new Schema({
         required: true,
     },
     name: {
-        firstName: {
-            type: String,
-            default: "",
-        },
-        lastName: {
-            type: String,
-            default: "",
-        },
+        type:String
     },
-    age: {
-        type: Number,
+    dob:{
+        type: Date,
     },
     badge: {
         type: String,
@@ -43,6 +36,14 @@ const userSchema = new Schema({
     verificationCode: {
         type: String
     },
+    canChangeEmail: {
+        type: Boolean,
+        default: false,
+    },
+    canChangePassword: {
+        type: Boolean,
+        default: false,
+    }
 }, {
     timestamps: true,
 });
