@@ -350,6 +350,7 @@
    width: 100vw;
    background-image: url("../public/GD.png");
    background-size: 100% 100%;
+   font-family: "Agencyfb";
   }
   .right-sidebar{
      height: 80%;
@@ -362,4 +363,64 @@
    width:4%;
    background-image: url("../public/leftsidebar.png");
    background-size: 100% 100%;
+ }
+.t1
+{
+  font-family: "Agencyfb";
+}
+ 
+.pp{
+height: 100px;
+width: 100px;
+background-image: url("../public/image\ upload.png");
+background-size: cover;
+}
+.plus{
+  height:20px;
+  width: 20px;
+  background-image: url("../public/basil_add-outline.png");
+  background-size: cover;
+}
+.selector1 {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+ opacity: calc(50%);
+}
+.right{
+  height: 200px;
+  width: 200px;
+}
+/* ACCOUNT DETAILS  */
+.main1{
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../public/sm.png");
+  background-size: 100% 100%;
+  font-family: "Agencyfb";
+ }
+ .ac{
+  height: 50px;
+  width: 450px;
+  background-image: url(../public/ac.svg);
+  background-size: cover;
+  filter:brightness(100%);
+  /* filter: sepia(50%); */
+ }
+ .w{
+  height: 30px;
+  width: 35px;
+  background-image: url(../public/w.png);
+  background-size: cover;
+ }
+ .b{
+  height: 40px;
+  width: 40px;
+  background-image: url(../public/bell.png);
+  background-size: cover;
+ }
+ .p{
+  height: 40px;
+  width: 40px;
+  background-image: url(../public/image\ upload.png);
+  background-size: cover;
  }

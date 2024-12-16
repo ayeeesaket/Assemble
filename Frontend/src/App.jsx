@@ -13,11 +13,13 @@ import ChangePass from "./components/ChangePass";
 import UsernameRecover from "./components/UsernameRecover";
 import UsernameSent from "./components/UsernameSent";
 import DashBoard from "./components/DashBoard";
+import AccountCenter from "./components/AccountCenter"
 const App = () => {
   return (
     <>
       {/* <Body/> */}
       <DashBoard/>
+      
     </>
   );
 };
