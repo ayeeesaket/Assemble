@@ -363,3 +363,24 @@
    background-image: url("../public/leftsidebar.png");
    background-size: 100% 100%;
  }
+
+/* HOMEPAGE */
+.home-body{
+   height: 100vh;
+   width: 100vw;
+   background-image: url("../public/homeBG.png");
+   background-color: black ;
+   background-size: cover;
+   font-family: "Agencyfb";
+   font-size: 90%;
+  }
+  .navbar-home{
+    display : flex;
+    justify-content: space-between;
+  }
+  .home-title{
+    height : 100px;
+    width : 400px;
+    background-image: url("../public/Homepage_Title.svg");
+    background-size:100% 100%;
+}
