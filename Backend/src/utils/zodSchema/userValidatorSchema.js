@@ -25,10 +25,52 @@ const changePasswordSchema = z.object({
     newPassword: z.string().min(5, { message: "Minimum Password Length Should Be 5 Characters." }),
 });
 
+const addDetailsSchema = z.object({
+    name: z.string().min(5, { message: "Minimum Name Length Should Be 5 Characters." }).optional(),
+    dob: z.string().optional(),
+}).refine(
+    (data) => data.name || data.dob,
+    { message: "Atleast One Field Is Required." }
+);
+
+const changeEmailSchema = z.object({
+    newEmail: z.string().email({ message: "Invalid Email Format" }),
+});
+
+const verifyNewEmailSchema = z.object({
+    newEmail: z.string().email({ message: "Invalid Email Format" }),
+    code: z.string().min(6, { message: "Invalid Verification Code." }),
+});
+
+const forgotUsernameSchema = z.object({
+    email: z.string().email({ message: "Invalid Email Format" }),
+});
+
+const forgotPasswordSchema = z.object({
+    email: z.string().email({ message: "Invalid Email Format" }),
+    password: z.string().min(5, { message: "Minimum Username Length Should Be 5 Characters." }),
+});
+
+const forgotPasswordVerificationEmailSchema = z.object({
+    email: z.string().email({ message: "Invalid Email Format" }),
+});
+
+const forgotPasswordVerificationCodeSchema = z.object({
+    email: z.string().email({ message: "Invalid Email Format" }),
+    code: z.string().min(6, { message: "Invalid Verification Code." }),
+});
+
 export {
     registerUserSchema,
     loginUserSchema,
     verifyCodeSchema,
     changeUsernameSchema,
     changePasswordSchema,
+    addDetailsSchema,
+    changeEmailSchema,
+    verifyNewEmailSchema,
+    forgotUsernameSchema,
+    forgotPasswordSchema,
+    forgotPasswordVerificationEmailSchema,
+    forgotPasswordVerificationCodeSchema,
 };

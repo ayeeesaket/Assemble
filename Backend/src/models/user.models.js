@@ -36,11 +36,13 @@ const userSchema = new Schema({
     verificationCode: {
         type: String
     },
-    newEmail: {
-        type: String,
+    canChangeEmail: {
+        type: Boolean,
+        default: false,
     },
-    newPassword: {
-        type: String,
+    canChangePassword: {
+        type: Boolean,
+        default: false,
     }
 }, {
     timestamps: true,
