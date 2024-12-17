@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
+import { USER_BADGES } from "../constants.js";
 
 const userSchema = new Schema({
     email: {
@@ -26,8 +27,8 @@ const userSchema = new Schema({
     },
     badge: {
         type: String,
-        enum: ["newbie", "sniper", "rusher", "assaulter"],
-        default: "newbie",
+        enum: USER_BADGES,
+        default: USER_BADGES[0],
     },
     isVerified: {
         type: Boolean,
