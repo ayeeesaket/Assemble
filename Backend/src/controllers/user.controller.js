@@ -4,7 +4,7 @@ import { User } from "../models/user.models.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { COOKIE_OPTIONS } from "../constants.js";
 import jwt from "jsonwebtoken";
-import { sendVerificationEmail, sendUsername } from "../utils/nodemailer/email.js";
+import { sendVerificationEmail, sendUsernameEmail, sendRegisterationEmail, sendChangeEmail } from "../utils/nodemailer/email.js";
 import bcrypt from "bcryptjs";
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -103,6 +103,7 @@ const verifyCode = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Invalid Verification Code.")
     }
     try {
+        await sendRegisterationEmail(userFound.email);
         const isVerified = await userFound.updateOne({ isVerified: true });
         return res
             .status(200)
@@ -141,6 +142,7 @@ const changePassword = asyncHandler(async (req, res) => {
         await user.save({
             validateBeforeSave: false,
         });
+        await sendChangeEmail(user.email, "password");
         return res
             .status(200)
             .json(new ApiResponse(200, null, "Password Changed Successfully."));
@@ -168,6 +170,7 @@ const changeUsername = asyncHandler(async (req, res) => {
             { username: newUsername },
             { new: true }
         ).select("-password");
+        await sendChangeEmail(updatedUser.email, "username");
         return res
             .status(200)
             .json(new ApiResponse(200, updatedUser, "Username Changed Successfully."));
@@ -283,6 +286,7 @@ const verifyNewEmail = asyncHandler(async (req, res) => {
                 new: true
             }
         ).select("-password");
+        await sendChangeEmail(updatedUser.email, "email");
         return res
             .status(200)
             .json(new ApiResponse(200, updatedUser, "Email changed Successfully!"));
@@ -301,7 +305,7 @@ const forgotUsername = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Email Not Found.");
     }
     try {
-        await sendUsername(email, user.username);
+        await sendUsernameEmail(email, user.username);
         return res
             .status(201)
             .json(new ApiResponse(201, user, "Mail Sent Successfully."));
@@ -385,7 +389,8 @@ const forgotPassword = asyncHandler(async (req, res) => {
                 new: true,
                 validateBeforeSave: false,
             }
-        ).select("-password")
+        ).select("-password");
+        await sendChangeEmail(updatedUser.email, "password");
         return res
             .status(200)
             .json(new ApiResponse(200, updatedUser, "Password changed Successfully!"));
