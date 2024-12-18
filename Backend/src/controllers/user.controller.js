@@ -6,6 +6,7 @@ import { COOKIE_OPTIONS } from "../constants.js";
 import jwt from "jsonwebtoken";
 import { sendVerificationEmail, sendUsernameEmail, sendRegisterationEmail, sendChangeEmail } from "../utils/nodemailer/email.js";
 import bcrypt from "bcryptjs";
+import { Game } from "../models/gameId.models.js";
 
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
@@ -29,10 +30,13 @@ const registerUser = asyncHandler(async (req, res) => {
             password,
             verificationCode
         });
+        const game = await Game.create({ //initating Game Schema
+            owner:user._id
+        });
         await sendVerificationEmail(user.email, user.verificationCode);
         return res
             .status(201)
-            .json(new ApiResponse(201, user, "User Created Successfully."));
+            .json(new ApiResponse(201, [user,game], "User Created Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }

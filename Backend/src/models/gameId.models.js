@@ -1,33 +1,34 @@
 import mongoose, { Schema } from "mongoose";
 
 const gameSchema = new Schema({
-    bgmi_id: {
+    bgmiId: {
         type: String,
         default: "",
     },
-    codm_id: {
+    codmId: {
         type: String,
         default: "",
     },
-    valorant_id: {
-        riot_id: {
+    valorantId: {
+        riotId: {
             type: String,
         },
         tagline: {
             type: String,
         },
     },
-    freefire_id: {
+    freefireId: {
         type: String,
         default: "",
     },
-    asphalt9_id: {
+    asphaltId: {
         type: String,
         default: "",
     },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
+        required:true 
     },
 }, {
     timestamps: true,
