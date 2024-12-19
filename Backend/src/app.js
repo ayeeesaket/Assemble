@@ -28,4 +28,8 @@ app.use("/api/v1", healthRouter);
 import userRouter from "./routes/user.routes.js";
 app.use("/api/v1/users", userRouter)
 
+//game route import
+import gameRouter from "./routes/games.routes.js";
+app.use("/api/v1/users/games",gameRouter)
+
 export default app;
