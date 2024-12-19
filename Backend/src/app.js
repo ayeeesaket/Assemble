@@ -20,16 +20,21 @@ app.use(express.urlencoded({
 
 app.use(cookieParser());
 
+// DEFAULT ROUTE
+app.get("/", (_req, res) => {
+    res.send("Welcome to the Assemble API");
+});
+
 // HEALTH CHECK ROUTE
 import healthRouter from "./routes/healthcheck.routes.js";
 app.use("/api/v1", healthRouter);
 
-//user route import
+// USER ROUTE
 import userRouter from "./routes/user.routes.js";
-app.use("/api/v1/users", userRouter)
+app.use("/api/v1/users", userRouter);
 
-//game route import
+// GAME ID ROUTE
 import gameRouter from "./routes/games.routes.js";
-app.use("/api/v1/users/games",gameRouter)
+app.use("/api/v1/users/games", gameRouter);
 
 export default app;

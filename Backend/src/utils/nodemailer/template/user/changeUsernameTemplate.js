@@ -52,7 +52,7 @@ export const Change_Username_Template = `
         <div class="header">Username Changed Successfully</div>
         <div class="content">
             <p>Hello,</p>
-            <p>Your Username Has Been Updated Successfully!</p>
+            <p>Your <b>Username</b> Has Been Updated Successfully!</p>
             <p>If this change is not done by you, please contact our support team.</p>
         </div>
         <div class="footer">
