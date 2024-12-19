@@ -30,7 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
             password,
             verificationCode
         });
-        const game = await Game.create({ //initating Game Schema
+        const game = await Game.create({
             owner:user._id
         });
         await sendVerificationEmail(user.email, user.verificationCode);

@@ -52,7 +52,7 @@ export const Change_Password_Template = `
         <div class="header">Password Changed Successfully</div>
         <div class="content">
             <p>Hello,</p>
-            <p>Your Password Has Been Updated Successfully!</p>
+            <p>Your <b>Password</b> Has Been Updated Successfully!</p>
             <p>If this change is not done by you, please contact our support team.</p>
         </div>
         <div class="footer">
