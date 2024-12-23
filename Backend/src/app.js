@@ -2,6 +2,12 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 app.use(cors({
@@ -20,12 +26,19 @@ app.use(express.urlencoded({
 
 app.use(cookieParser());
 
+// DEFAULT ROUTE
+app.use("/", express.static(path.join(__dirname, "static")));
+
 // HEALTH CHECK ROUTE
 import healthRouter from "./routes/healthcheck.routes.js";
 app.use("/api/v1", healthRouter);
 
-//user route import
+// USER ROUTE
 import userRouter from "./routes/user.routes.js";
-app.use("/api/v1/users", userRouter)
+app.use("/api/v1/users", userRouter);
+
+// GAME ID ROUTE
+import gameRouter from "./routes/games.routes.js";
+app.use("/api/v1/users/games", gameRouter);
 
 export default app;
