@@ -4,39 +4,68 @@ import { User } from "../models/user.models.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { COOKIE_OPTIONS } from "../constants.js";
 import jwt from "jsonwebtoken";
-import { sendVerificationEmail, sendUsernameEmail, sendRegisterationEmail, sendChangeEmail } from "../utils/nodemailer/email.js";
-import bcrypt from "bcryptjs";
 import { Game } from "../models/gameId.models.js";
+import passwordQueue from "../utils/bull/producers/passwordQueues/passwordQueue.js";
+import changePasswordQueue from "../utils/bull/producers/passwordQueues/changePasswordQueue.js";
+import forgotPasswordQueue from "../utils/bull/producers/passwordQueues/forgotPasswordQueue.js";
+import sendRegisterationEmailQueue from "../utils/bull/producers/emailQueues/sendRegisterationEmailQueue.js";
+import sendChangeEmailQueue from "../utils/bull/producers/emailQueues/sendChangeEmailQueue.js";
+import sendVerificationCodeEmailQueue from "../utils/bull/producers/emailQueues/sendVerificationCodeEmailQueue.js";
+import sendUsernameEmailQueue from "../utils/bull/producers/emailQueues/sendUsernameEmailQueue.js";
 
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
     if (!(username || email || password)) {
         throw new ApiError(400, "All Fields Are Required.")
     }
-
     const existedUser = await User.findOne({
         $or: [{ username }, { email }]
     });
     if (existedUser) {
         throw new ApiError(409, "User Already Exists.")
     }
-
     const verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
-
     try {
         const user = await User.create({
             username,
             email,
-            password,
+            password:"PENDING HASH",
             verificationCode
         });
         const game = await Game.create({
             owner:user._id
         });
-        await sendVerificationEmail(user.email, user.verificationCode);
+        const job = await passwordQueue.add('hash-password', { userId: user._id, password });
         return res
-            .status(201)
-            .json(new ApiResponse(201, [user,game], "User Created Successfully."));
+            .status(202)
+            .json(new ApiResponse(
+                202,
+                { user, game, jobId: job.id },
+                "Registeration Initiated."
+            ));
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error.");
+    }
+});
+
+const verifyCode = asyncHandler(async (req, res) => {
+    const { email, code } = req.body;
+    if (!(email || code)) {
+        throw new ApiError(400, "All Fields Are Required.")
+    }
+    const userFound = await User.findOne({ email });
+    if (!userFound) {
+        throw new ApiError(404, "User Not Found.")
+    }
+    if (userFound.verificationCode !== code) {
+        throw new ApiError(401, "Invalid Verification Code.")
+    }
+    try {
+        const job = await sendRegisterationEmailQueue.add('registeration-email', { userId: userFound._id });
+        const isVerified = await userFound.updateOne({ isVerified: true });
+        return res
+            .status(200)
+            .json(new ApiResponse(200, { isVerified, jobId: job.id }, "User Verified Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -64,22 +93,18 @@ const loginUser = asyncHandler(async (req, res) => {
     if (!(username || password)) {
         throw new ApiError(400, "All Fields Are Required.")
     }
-
     const user = await User.findOne({ username });
     if (!user) {
         throw new ApiError(404, "User Not Found.")
     }
-
     if (!user.isVerified) {
         await User.findByIdAndDelete(user._id);
         throw new ApiError(401, "User Not Verified.")
     }
-
     const isPasswordCorrect = await user.isPasswordCorrect(password);
     if (!isPasswordCorrect) {
         throw new ApiError(401, "Invalid Credentials.")
     }
-
     const token = await generateToken(user);
     if (!token) {
         throw new ApiError(500, "Token Generation Failed.")
@@ -89,29 +114,6 @@ const loginUser = asyncHandler(async (req, res) => {
             .cookie("token", token, COOKIE_OPTIONS)
             .status(200)
             .json(new ApiResponse(200, null, "User Logged In Successfully."));
-    } catch (error) {
-        throw new ApiError(500, error.message || "Internal Server Error.");
-    }
-});
-
-const verifyCode = asyncHandler(async (req, res) => {
-    const { email, code } = req.body;
-    if (!(email || code)) {
-        throw new ApiError(400, "All Fields Are Required.")
-    }
-    const userFound = await User.findOne({ email });
-    if (!userFound) {
-        throw new ApiError(404, "User Not Found.")
-    }
-    if (userFound.verificationCode !== code) {
-        throw new ApiError(401, "Invalid Verification Code.")
-    }
-    try {
-        await sendRegisterationEmail(userFound.email);
-        const isVerified = await userFound.updateOne({ isVerified: true });
-        return res
-            .status(200)
-            .json(new ApiResponse(200, isVerified, "User Verified Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -133,23 +135,29 @@ const changePassword = asyncHandler(async (req, res) => {
     if (!(oldPassword || newPassword)) {
         throw new ApiError(400, "All Fields Are Required.")
     }
-    const user = req.user;
-    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
-    if (!isPasswordCorrect) {
-        throw new ApiError(401, "Invalid Credentials.")
-    }
     if (oldPassword === newPassword) {
         throw new ApiError(400, "Old Password And New Password Cannot Be Same.")
     }
+    const user = req.user;
+    if (!user) {
+        throw new Error('User not found');
+    }
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
+    if (!isPasswordCorrect) {
+        throw new Error('Old password is incorrect');
+    }
     try {
-        user.password = newPassword;
-        await user.save({
-            validateBeforeSave: false,
-        });
-        await sendChangeEmail(user.email, "password");
+        const job = await changePasswordQueue.add(
+            'change-password',
+            { userId: user._id, newPassword }
+        );
         return res
             .status(200)
-            .json(new ApiResponse(200, null, "Password Changed Successfully."));
+            .json(new ApiResponse(
+                200,
+                { jobId: job.id },
+                "Password Change Process Started."
+            ));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -174,10 +182,10 @@ const changeUsername = asyncHandler(async (req, res) => {
             { username: newUsername },
             { new: true }
         ).select("-password");
-        await sendChangeEmail(updatedUser.email, "username");
+        const job = await sendChangeEmailQueue.add('change-email', { userId: user._id, change: "username" });
         return res
             .status(200)
-            .json(new ApiResponse(200, updatedUser, "Username Changed Successfully."));
+            .json(new ApiResponse(200, { jobId: job.id, updatedUser }, "Username Changed Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -237,21 +245,17 @@ const addDetails = asyncHandler(async (req, res) => {
 
 const changeEmail = asyncHandler(async (req, res) => {
     const { newEmail } = req.body;
-
     if (!newEmail) {
         throw new ApiError(400, "All Fields Are Required.");
     }
     const user = req.user;
     const existedEmail = await User.findOne({ email: newEmail });
-
     if (newEmail === user.email) {
         throw new ApiError(409, "Old Email And New Email Cannot Be Same.");
     }
-
     if (existedEmail) {
         throw new ApiError(409, "Email Already Exists.");
     }
-
     const verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
     try {
         const newUser = await User.findByIdAndUpdate(
@@ -259,12 +263,10 @@ const changeEmail = asyncHandler(async (req, res) => {
             { verificationCode: verificationCode, canChangeEmail: true },
             { new: true }
         ).select("-password");
-        await sendVerificationEmail(newEmail, verificationCode);
-
+        const job = await sendVerificationCodeEmailQueue.add('verification-code-email', { userId: newUser._id });
         return res
             .status(201)
-            .json(new ApiResponse(201, newUser, "Code sent successfully"))
-
+            .json(new ApiResponse(201, { jobId: job.id, newUser }, "Code Sent Successfully"))
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -290,10 +292,10 @@ const verifyNewEmail = asyncHandler(async (req, res) => {
                 new: true
             }
         ).select("-password");
-        await sendChangeEmail(updatedUser.email, "email");
+        const job = await sendChangeEmailQueue.add('change-email', { userId: user._id, change: "email" });
         return res
             .status(200)
-            .json(new ApiResponse(200, updatedUser, "Email changed Successfully!"));
+            .json(new ApiResponse(200, { updatedUser, jobId: job.id }, "Email changed Successfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -309,10 +311,10 @@ const forgotUsername = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Email Not Found.");
     }
     try {
-        await sendUsernameEmail(email, user.username);
+        const job = await sendUsernameEmailQueue.add('username-email', { userId: user._id });
         return res
             .status(201)
-            .json(new ApiResponse(201, user, "Mail Sent Successfully."));
+            .json(new ApiResponse(201, { user, jobId: job.id }, "Mail Sent Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -329,15 +331,15 @@ const forgotPasswordVerificationEmail = asyncHandler(async (req, res) => {
     }
     const verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
     try {
-        await sendVerificationEmail(user.email, verificationCode);
         const updatedUser = await User.findByIdAndUpdate(
             user._id,
             { verificationCode: verificationCode },
             { new: true }
         ).select("-password");
+        const job = await sendVerificationCodeEmailQueue.add('verification-code-email', { userId: user._id });
         return res
             .status(201)
-            .json(new ApiResponse(201, updatedUser, "Mail Sent Successfully."));
+            .json(new ApiResponse(201, { updatedUser, jobId: job.id }, "Mail Sent Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -384,20 +386,11 @@ const forgotPassword = asyncHandler(async (req, res) => {
     if (isPasswordCorrect) {
         throw new ApiError(400, "Old Password And New Password Cannot Be Same.");
     }
-    const hashedPassword = await bcrypt.hash(password, 13);
     try {
-        const updatedUser = await User.findByIdAndUpdate(
-            user._id,
-            { password: hashedPassword, canChangePassword: false },
-            {
-                new: true,
-                validateBeforeSave: false,
-            }
-        ).select("-password");
-        await sendChangeEmail(updatedUser.email, "password");
+        const job = await forgotPasswordQueue.add('forgot-password', { userId: user._id, password });
         return res
             .status(200)
-            .json(new ApiResponse(200, updatedUser, "Password changed Successfully!"));
+            .json(new ApiResponse(200, { jobId: job.id }, "Password Change Process Started."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -416,5 +409,5 @@ export {
     forgotUsername,
     forgotPasswordVerificationEmail,
     forgotPasswordVerificationCode,
-    forgotPassword
+    forgotPassword,
 };
