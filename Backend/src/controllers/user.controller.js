@@ -4,7 +4,6 @@ import { User } from "../models/user.models.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { COOKIE_OPTIONS } from "../constants.js";
 import jwt from "jsonwebtoken";
-import { Game } from "../models/gameId.models.js";
 import passwordQueue from "../utils/bull/producers/passwordQueues/passwordQueue.js";
 import changePasswordQueue from "../utils/bull/producers/passwordQueues/changePasswordQueue.js";
 import forgotPasswordQueue from "../utils/bull/producers/passwordQueues/forgotPasswordQueue.js";
