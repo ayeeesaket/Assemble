@@ -12,14 +12,14 @@ const addBgmiId = asyncHandler(async (req, res) => {
     }
 
     try {
-        const updatedGame = await Game.findOneAndUpdate(
+        await Game.findOneAndUpdate(
             { owner: user._id },
             { bgmiId: bgmiId },
             { new: true }
         );
         return res
             .status(201)
-            .json(new ApiResponse(201, updatedGame, "Bgmi id added Sucessfully!"));
+            .json(new ApiResponse(201, null, "Bgmi id added Sucessfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error");
     }
@@ -34,14 +34,14 @@ const addFreeFireId = asyncHandler(async (req, res) => {
     }
 
     try {
-        const updatedGame = await Game.findOneAndUpdate(
+        await Game.findOneAndUpdate(
             { owner: user._id },
             { freefireId: freeFireId },
             { new: true }
         );
         return res
             .status(201)
-            .json(new ApiResponse(201, updatedGame, "FreeFire id added Sucessfully!"));
+            .json(new ApiResponse(201, null, "FreeFire id added Sucessfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error");
     }
@@ -57,7 +57,7 @@ const addValorantId = asyncHandler(async (req, res) => {
     }
 
     try {
-        const updatedGame = await Game.findOneAndUpdate(
+        await Game.findOneAndUpdate(
             { owner: user._id },
             {
                 valorantId: {
@@ -69,7 +69,7 @@ const addValorantId = asyncHandler(async (req, res) => {
         );
         return res
             .status(201)
-            .json(new ApiResponse(201, updatedGame, "Valorant id added Sucessfully!"));
+            .json(new ApiResponse(201, null, "Valorant id added Sucessfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error");
     }
@@ -84,14 +84,14 @@ const addCodmId = asyncHandler(async (req, res) => {
     }
 
     try {
-        const updatedGame = await Game.findOneAndUpdate(
+        await Game.findOneAndUpdate(
             { owner: user._id },
             { codmId: codmId },
             { new: true }
         );
         return res
             .status(201)
-            .json(new ApiResponse(201, updatedGame, "Call of Duty Mobile id added Sucessfully!"));
+            .json(new ApiResponse(201, null, "Call of Duty Mobile id added Sucessfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error");
     }
@@ -106,14 +106,14 @@ const addAsphaltId = asyncHandler(async (req, res) => {
     }
 
     try {
-        const updatedGame = await Game.findOneAndUpdate(
+        await Game.findOneAndUpdate(
             { owner: user._id },
             { asphaltId: asphaltId },
             { new: true }
         );
         return res
             .status(201)
-            .json(new ApiResponse(201, updatedGame, "Asphalt id added Sucessfully!"));
+            .json(new ApiResponse(201, null, "Asphalt id added Sucessfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error");
     }
