@@ -29,18 +29,15 @@ const registerUser = asyncHandler(async (req, res) => {
         const user = await User.create({
             username,
             email,
-            password:"PENDING HASH",
+            password: "PENDING HASH",
             verificationCode
         });
-        const game = await Game.create({
-            owner:user._id
-        });
-        const job = await passwordQueue.add('hash-password', { userId: user._id, password });
+        await passwordQueue.add('hash-password', { userId: user._id, password });
         return res
             .status(202)
             .json(new ApiResponse(
                 202,
-                { user, game, jobId: job.id },
+                null,
                 "Registeration Initiated."
             ));
     } catch (error) {
@@ -61,11 +58,11 @@ const verifyCode = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Invalid Verification Code.")
     }
     try {
-        const job = await sendRegisterationEmailQueue.add('registeration-email', { userId: userFound._id });
-        const isVerified = await userFound.updateOne({ isVerified: true });
+        await sendRegisterationEmailQueue.add('registeration-email', { userId: userFound._id });
+        await userFound.updateOne({ isVerified: true });
         return res
             .status(200)
-            .json(new ApiResponse(200, { isVerified, jobId: job.id }, "User Verified Successfully."));
+            .json(new ApiResponse(200, null, "User Verified Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -147,7 +144,7 @@ const changePassword = asyncHandler(async (req, res) => {
         throw new Error('Old password is incorrect');
     }
     try {
-        const job = await changePasswordQueue.add(
+        await changePasswordQueue.add(
             'change-password',
             { userId: user._id, newPassword }
         );
@@ -155,7 +152,7 @@ const changePassword = asyncHandler(async (req, res) => {
             .status(200)
             .json(new ApiResponse(
                 200,
-                { jobId: job.id },
+                null,
                 "Password Change Process Started."
             ));
     } catch (error) {
@@ -182,10 +179,10 @@ const changeUsername = asyncHandler(async (req, res) => {
             { username: newUsername },
             { new: true }
         ).select("-password");
-        const job = await sendChangeEmailQueue.add('change-email', { userId: user._id, change: "username" });
+        await sendChangeEmailQueue.add('change-email', { userId: updatedUser._id, change: "username" });
         return res
             .status(200)
-            .json(new ApiResponse(200, { jobId: job.id, updatedUser }, "Username Changed Successfully."));
+            .json(new ApiResponse(200, null, "Username Changed Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -209,35 +206,33 @@ const addDetails = asyncHandler(async (req, res) => {
     }
     try {
         if (name && !dob) {
+            await User.findByIdAndUpdate(
+                user._id,
+                { name: name },
+                { new: true }
+            );
             return res
                 .status(201)
-                .json(new ApiResponse(200,
-                    await User.findByIdAndUpdate(
-                        user._id,
-                        { name: name },
-                        { new: true }
-                    ).select("-password")
-                    , "Name added Successfully"));
+                .json(new ApiResponse(200, null, "Name added Successfully"));
         }
         if (!name && dob) {
+            await User.findByIdAndUpdate(
+                user._id,
+                { dob: newDob },
+                { new: true }
+            );
             return res
                 .status(201)
-                .json(new ApiResponse(200,
-                    await User.findByIdAndUpdate(
-                        user._id,
-                        { dob: newDob },
-                        { new: true }
-                    ).select("-password")
-                    , "Dob added Successfully"));
+                .json(new ApiResponse(200, null, "Dob added Successfully"));
         }
-        const updatedUser = await User.findByIdAndUpdate(
+        await User.findByIdAndUpdate(
             user._id,
             { name: name, dob: dob },
             { new: true }
-        ).select("-password");
+        );
         return res
             .status(201)
-            .json(new ApiResponse(200, updatedUser, "Name and Dob added Successfully"));
+            .json(new ApiResponse(200, null, "Name and Dob added Successfully"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -262,11 +257,11 @@ const changeEmail = asyncHandler(async (req, res) => {
             user._id,
             { verificationCode: verificationCode, canChangeEmail: true },
             { new: true }
-        ).select("-password");
-        const job = await sendVerificationCodeEmailQueue.add('verification-code-email', { userId: newUser._id });
+        );
+        await sendVerificationCodeEmailQueue.add('verification-code-email', { userId: newUser._id });
         return res
             .status(201)
-            .json(new ApiResponse(201, { jobId: job.id, newUser }, "Code Sent Successfully"))
+            .json(new ApiResponse(201, null, "Code Sent Successfully"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -291,11 +286,11 @@ const verifyNewEmail = asyncHandler(async (req, res) => {
             {
                 new: true
             }
-        ).select("-password");
-        const job = await sendChangeEmailQueue.add('change-email', { userId: user._id, change: "email" });
+        );
+        await sendChangeEmailQueue.add('change-email', { userId: updatedUser._id, change: "email" });
         return res
             .status(200)
-            .json(new ApiResponse(200, { updatedUser, jobId: job.id }, "Email changed Successfully!"));
+            .json(new ApiResponse(200, null, "Email changed Successfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -311,10 +306,10 @@ const forgotUsername = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Email Not Found.");
     }
     try {
-        const job = await sendUsernameEmailQueue.add('username-email', { userId: user._id });
+        await sendUsernameEmailQueue.add('username-email', { userId: user._id });
         return res
             .status(201)
-            .json(new ApiResponse(201, { user, jobId: job.id }, "Mail Sent Successfully."));
+            .json(new ApiResponse(201, null, "Mail Sent Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -335,11 +330,11 @@ const forgotPasswordVerificationEmail = asyncHandler(async (req, res) => {
             user._id,
             { verificationCode: verificationCode },
             { new: true }
-        ).select("-password");
-        const job = await sendVerificationCodeEmailQueue.add('verification-code-email', { userId: user._id });
+        );
+        await sendVerificationCodeEmailQueue.add('verification-code-email', { userId: updatedUser._id });
         return res
             .status(201)
-            .json(new ApiResponse(201, { updatedUser, jobId: job.id }, "Mail Sent Successfully."));
+            .json(new ApiResponse(201, null, "Mail Sent Successfully."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -355,16 +350,16 @@ const forgotPasswordVerificationCode = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Invalid Verification Code.")
     }
     try {
-        const updatedUser = await User.findByIdAndUpdate(
+        await User.findByIdAndUpdate(
             user._id,
             { canChangePassword: true },
             {
-                new: true
+                new: true,
             }
-        ).select("-password")
+        );
         return res
             .status(200)
-            .json(new ApiResponse(200, updatedUser, "Mail Verified Successfully!"));
+            .json(new ApiResponse(200, null, "Mail Verified Successfully!"));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
@@ -387,10 +382,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Old Password And New Password Cannot Be Same.");
     }
     try {
-        const job = await forgotPasswordQueue.add('forgot-password', { userId: user._id, password });
+        await forgotPasswordQueue.add('forgot-password', { userId: user._id, password });
         return res
             .status(200)
-            .json(new ApiResponse(200, { jobId: job.id }, "Password Change Process Started."));
+            .json(new ApiResponse(200, null, "Password Change Process Started."));
     } catch (error) {
         throw new ApiError(500, error.message || "Internal Server Error.");
     }
