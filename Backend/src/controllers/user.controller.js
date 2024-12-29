@@ -391,6 +391,18 @@ const forgotPassword = asyncHandler(async (req, res) => {
     }
 });
 
+const getUserData = asyncHandler(async (req, res) => {
+    const user = req.user;
+    try {
+        const newUser = await User.findById( user._id );
+        return res
+            .status(200)
+            .json(new ApiResponse(200, newUser, "User Data."));
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error.");
+    }
+});
+
 export {
     registerUser,
     loginUser,
@@ -405,4 +417,5 @@ export {
     forgotPasswordVerificationEmail,
     forgotPasswordVerificationCode,
     forgotPassword,
+    getUserData,
 };
