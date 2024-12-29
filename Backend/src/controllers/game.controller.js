@@ -50,7 +50,7 @@ const addFreeFireId = asyncHandler(async (req, res) => {
 const addValorantId = asyncHandler(async (req, res) => {
     const { valorantId } = req.body;
     const user = req.user;
-    console.log(valorantId.riotId);
+    // console.log(valorantId.riotId);
 
     if (!valorantId.tagline || !valorantId.riotId) {
         throw new ApiError(400, "All fields are required");
@@ -119,10 +119,26 @@ const addAsphaltId = asyncHandler(async (req, res) => {
     }
 })
 
+const getGameId = asyncHandler(async (req, res) => {
+    const user = req.user;
+
+    try {
+        const game
+            = await Game.findOne({ owner: user._id });
+        return res
+            .status(200)
+            .json(new ApiResponse(200, game, "Game Ids fetched successfully"));
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error");
+    }
+
+})
+
 export {
     addBgmiId,
     addFreeFireId,
     addCodmId,
     addValorantId,
-    addAsphaltId
+    addAsphaltId,
+    getGameId
 };

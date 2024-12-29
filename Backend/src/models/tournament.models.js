@@ -5,6 +5,7 @@ const tournamentScehma = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,    
     },
     matchDate: {
         type: Date,
@@ -18,7 +19,7 @@ const tournamentScehma = new Schema({
         type: Date,
         required: true,
     },
-    slots: {
+    totalSlots: {
         type: Number,
         required: true,
     },
