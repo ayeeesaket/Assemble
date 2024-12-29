@@ -6,7 +6,6 @@ import {
     addCodmId, 
     addFreeFireId, 
     addValorantId,
-    getGameId
 } from "../controllers/game.controller.js";
 import validationSchema from "../middlewares/zodValidator.middleware.js";
 import {
@@ -25,7 +24,6 @@ router.route("/codm").post(verifyToken, initializeGameModel ,validationSchema(co
 router.route("/valorant").post(verifyToken, initializeGameModel ,validationSchema(valorantIdSchema), addValorantId);
 router.route("/freefire").post(verifyToken, initializeGameModel ,validationSchema(freeFireIdSchema), addFreeFireId);
 router.route("/asphalt").post(verifyToken, initializeGameModel ,validationSchema(asphaltIdSchema), addAsphaltId);
-router.route("/getGameId").get(verifyToken, initializeGameModel ,getGameId);
 
 
 export default router;

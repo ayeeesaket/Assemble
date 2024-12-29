@@ -393,7 +393,36 @@ const forgotPassword = asyncHandler(async (req, res) => {
 const getUserData = asyncHandler(async (req, res) => {
     const user = req.user;
     try {
-        const newUser = await User.findById( user._id );
+        const newUser = await User.aggregate([
+            {
+                $match: {
+                    _id: user._id,
+                }
+            },
+            {
+                $lookup: {
+                    from: "games",
+                    localField: "_id",
+                    foreignField: "owner",
+                    as: "games"
+                }
+            },
+            {
+                $project: {
+                    email: 1,
+                    username: 1,
+                    name: 1,
+                    dob: 1,
+                    badge: 1,
+                    isVerified: 1,
+                    "games.bgmiId": 1,
+                    "games.codmId": 1,
+                    "games.valorantId": 1,
+                    "games.freefireId": 1,
+                    "games.asphaltId": 1
+                }
+            }
+        ]);
         return res
             .status(200)
             .json(new ApiResponse(200, newUser, "User Data."));
