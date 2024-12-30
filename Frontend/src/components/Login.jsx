@@ -11,21 +11,19 @@ const Login = () => {
 
   const getInputData = async (e) => {
     e.preventDefault();
-    const user = {username, password};
-     try {
-      const res = await axios.post("https://bulloptimization.onrender.com/api/v1/users/login", user, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    try {
+      const response = await axios.post('/api/v1/users/login', {
+        username,
+        password,
+      }, {
         withCredentials: true,
-       });
-      console.log(res);
+      });
+      console.log('API Response:', response.data);
     } catch (error) {
-      console.log(error);
+      console.error('Error during API call:', error);
     }
     setEmail("");
     setPassword("");
-   
   };
 
   const cantSignin = (e) => {
