@@ -2,6 +2,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { Tournament } from "../models/tournament.models.js";
+import { Result } from "../models/result.models.js";
 
 const createTournaments = asyncHandler(async(req,res)=>{
 
@@ -116,4 +117,62 @@ const registerPlayer = asyncHandler(async (req, res) => {
     }
 });
 
-export { createTournaments , getTournaments , registerPlayer , tournamentInfo }
+const postResult = asyncHandler(async (req, res) => {
+    const { tournamentName, leaderboard } = req.body;
+
+    const tournament = await Tournament.findOne({ name: tournamentName });
+    if (!tournament) {
+        throw new ApiError(404, "Tournament not found");
+    }
+
+    if (!tournament.isActive) {
+        throw new ApiError(400, "Tournament is not active");
+    }
+
+    if(!leaderboard || leaderboard.length === 0){
+        throw new ApiError(400, "Leaderboard is required");
+    }
+
+    try {
+         await Result.create({
+            tournament: tournament._id,
+            leaderboard,
+        });
+    
+        return res
+        .status(201)
+        .json(new ApiResponse(201, "Result Posted Successfully!!"));
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error");
+    }
+});
+
+const getResults = asyncHandler(async (req, res) => {
+    const { tournamentName } = req.body;
+
+    const tournament = await Tournament.findOne({ name: tournamentName });
+
+    if (!tournament) {
+        throw new ApiError(404, "Tournament not found");
+    }
+
+    const results = await Result.find({ tournament: tournament._id })
+
+    if (!results) {
+        throw new ApiError(404, "Results not found");
+    }
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, results, "Results fetched successfully!!"));
+});
+
+
+export { 
+    createTournaments, 
+    getTournaments, 
+    registerPlayer, 
+    tournamentInfo, 
+    postResult, 
+    getResults
+}
