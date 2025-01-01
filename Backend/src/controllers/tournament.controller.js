@@ -3,6 +3,7 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { Tournament } from "../models/tournament.models.js";
 import { Result } from "../models/result.models.js";
+import mongoose from "mongoose";
 
 const createTournaments = asyncHandler(async(req,res)=>{
 
@@ -147,6 +148,7 @@ const postResult = asyncHandler(async (req, res) => {
     }
 });
 
+//for admin
 const getResults = asyncHandler(async (req, res) => {
     const { tournamentName } = req.body;
 
@@ -167,6 +169,34 @@ const getResults = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, results, "Results fetched successfully!!"));
 });
 
+//for user
+const getIndividualResult = asyncHandler(async (req, res) => {
+    const { tournamentName } = req.body;
+    const user = req.user;
+
+    if(!tournamentName){
+        throw new ApiError(400, "Tournament name is required");
+    }
+
+    const tournament = await Tournament.findOne({ name: tournamentName });
+
+    if (!tournament) {
+        throw new ApiError(404, "Tournament not found");
+    }
+
+    const position = await Result.findOne(
+        { tournament: tournament._id, "leaderboard.player": user._id },
+        { "leaderboard.$": 1 }
+    ).select("-tournament -_id -createdAt -updatedAt -__v"); 
+
+    if (!position) {
+        throw new ApiError(404, "Result not found");
+    }
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, position, "Result fetched successfully!!"));   
+});
 
 export { 
     createTournaments, 
@@ -174,5 +204,6 @@ export {
     registerPlayer, 
     tournamentInfo, 
     postResult, 
-    getResults
+    getResults,
+    getIndividualResult,
 }
