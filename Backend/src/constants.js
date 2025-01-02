@@ -26,10 +26,16 @@ const TOURNAMENT_TYPES = Object.freeze([
     "Squad",
 ]);
 
+const USER_ROLES = Object.freeze([
+    "USER",
+    "ADMIN",
+]);
+
 export {
     DB_NAME,
     COOKIE_OPTIONS,
     USER_BADGES,
     GAMES,
     TOURNAMENT_TYPES,
+    USER_ROLES,
 };

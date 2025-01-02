@@ -3,9 +3,9 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { Tournament } from "../models/tournament.models.js";
 
-const createTournaments = asyncHandler(async(req,res)=>{
-
-    const {name,
+const createTournaments = asyncHandler(async (req, res) => {
+    const {
+        name,
         matchDate,
         matchTime,
         registrationEndDate,
@@ -15,7 +15,8 @@ const createTournaments = asyncHandler(async(req,res)=>{
         game,
         entryFee,
         description,
-        instructions,} = req.body;
+        instructions
+    } = req.body;
 
     const now = new Date();
     if(new Date(registrationEndDate) <= now){
