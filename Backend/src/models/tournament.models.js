@@ -68,7 +68,6 @@ const tournamentScehma = new Schema({
         type: Boolean,
         default: true,
     },
-    // leaderboard: {},
     // idp: {},
     // refundForm: {},
 }, {
