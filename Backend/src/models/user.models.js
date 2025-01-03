@@ -49,7 +49,13 @@ const userSchema = new Schema({
         type: String,
         enum: USER_ROLES,
         default: USER_ROLES[0],
-    }
+    },
+    registeredTournaments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Tournament",
+        }
+    ],
 }, {
     timestamps: true,
 });
