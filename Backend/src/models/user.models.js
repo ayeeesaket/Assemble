@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
+import { USER_BADGES, USER_ROLES } from "../constants.js";
 
 const userSchema = new Schema({
     email: {
@@ -26,8 +27,8 @@ const userSchema = new Schema({
     },
     badge: {
         type: String,
-        enum: ["newbie", "sniper", "rusher", "assaulter"],
-        default: "newbie",
+        enum: USER_BADGES,
+        default: USER_BADGES[0],
     },
     isVerified: {
         type: Boolean,
@@ -43,17 +44,20 @@ const userSchema = new Schema({
     canChangePassword: {
         type: Boolean,
         default: false,
-    }
+    },
+    role: {
+        type: String,
+        enum: USER_ROLES,
+        default: USER_ROLES[0],
+    },
+    registeredTournaments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Tournament",
+        }
+    ],
 }, {
     timestamps: true,
-});
-
-userSchema.pre("save", async function(next) {
-    if (!this.isModified("password")) {
-        return next();
-    }
-    this.password = await bcrypt.hash(this.password, 13);
-    next();
 });
 
 userSchema.methods.isPasswordCorrect = async function(password){

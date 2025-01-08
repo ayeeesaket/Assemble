@@ -13,14 +13,19 @@ import ChangePass from "./components/ChangePass";
 import UsernameRecover from "./components/UsernameRecover";
 import UsernameSent from "./components/UsernameSent";
 import DashBoard from "./components/DashBoard";
-import Homepage from "./components/Homepage";
+import AccountCenter from "./components/AccountCenter"
+import Homepage from "./components/homepage/Homepage";
+import NavConsole from "./components/ui/nav/NavConsole";
 const App = () => {
   return (
-    <>
-      {/* <Body/> */}
+    <div className="overflow-hidden no-scrollbar">
+      <Body/>
       {/* <DashBoard/> */}
-      <Homepage/>
-    </>
+      {/* <Homepage/> */}
+      {/* <AccountCenter /> */}
+      {/* <NavConsole/> */}
+      
+    </div>
   );
 };
 
