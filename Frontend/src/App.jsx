@@ -19,10 +19,10 @@ import NavConsole from "./components/ui/nav/NavConsole";
 const App = () => {
   return (
     <div className="overflow-hidden no-scrollbar">
-      {/* <Body/> */}
-      {/* <Login/> */}
+      {/* {/* <Body/> */}
+      {/* <Login/> */} */}
       {/* <DashBoard/> */}
-      {/* <Homepage/> */}
+      <Homepage/>
       {/* <AccountCenter /> */}
       {/* <NavConsole/> */}
       
